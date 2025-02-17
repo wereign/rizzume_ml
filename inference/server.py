@@ -1,15 +1,17 @@
-from typing import Union
+from typing import List, Union
+from profile_model import UserProfile
 from pydantic import BaseModel
 from fastapi import FastAPI
 from profile_processor import predict_on_master_profile
-
+from optimize import optimize_profile
 app = FastAPI()
 
-# DATA MODELS
-class InferenceData(BaseModel):
-    user_id:int
-    master_profile: dict
-    all_tags: list
+
+class OptimizeModel(BaseModel):
+    user : UserProfile
+    job_description : str
+
+
 
 # ENDPOINTS
 @app.get('/')
@@ -18,7 +20,7 @@ def read_root():
 
 
 @app.post("/tag_profile")
-def tag_profile(data:InferenceData):
+def tag_profile(data:UserProfile):
     master_profile = data.master_profile
     all_tags = data.all_tags
     tagged_profile = predict_on_master_profile(master_profile,all_tags)
@@ -26,27 +28,14 @@ def tag_profile(data:InferenceData):
     return tagged_profile
 
 
-# @app.post("/tag_profile")
-# def tag_profile(data: InferenceData):
-#     master_block = data.master_profile
-#     all_tags = data.all_tags
+@app.post('/optimize_profile')
+def optimize_profile_endpoint(data:OptimizeModel):
+    print("Got Optimization Request")
+    user = data.user
+    profile = user.master_profile
 
-#     # select the required blocks
-#     blocks_list = ['projects', 'experience', 'certifications', 'achievements']
+    job_description = data.job_description
+    optimized_profile = optimize_profile(job_description=job_description,profile_json=profile)
 
-#     for block in blocks_list:
-#         for i in range(len(master_block[block])):  # iterating over a list
-#             block_data = master_block[block][i]
-#             valid_keys = filter(lambda x: x != 'tags', block_data.keys())
-
-#             # convert every block item into a string representation
-#             x = str({i: block_data[i] for i in valid_keys})
-
-#             # pass in the block with the user tags
-#             predictions = predict(x, all_tags)
-#             print('----------------------------------')
-#             print(x)
-#             print(predictions)
-
-#             # set the predicted tags into the tags section of the item in the block
-#     return {"place": "holder"}
+    return optimized_profile
+    

@@ -1,0 +1,32 @@
+Job Title: Machine Learning Engineer
+
+Location: San Francisco, CA (Hybrid)
+Job Type: Full-time
+
+Job Description:
+We are seeking a skilled Machine Learning Engineer to develop and deploy scalable ML models and systems. The ideal candidate will work on data preprocessing, model training, evaluation, and deployment while collaborating with cross-functional teams to integrate ML solutions into production environments.
+
+Key Responsibilities:
+Design, develop, and optimize machine learning models for predictive analytics and automation.
+Work with large-scale datasets, perform feature engineering, and implement data preprocessing pipelines.
+Train and fine-tune deep learning models for computer vision and NLP applications.
+Deploy and maintain ML models in production using MLOps tools and frameworks.
+Optimize inference pipelines for real-time and batch processing.
+Collaborate with data engineers and software developers to integrate ML solutions into business applications.
+Research and implement state-of-the-art algorithms to improve model performance.
+Monitor model drift and retrain models as needed to maintain accuracy.
+Write clean, efficient, and well-documented code following best practices.
+Requirements:
+Bachelor’s or Master’s degree in Computer Science, Data Science, or a related field.
+3+ years of experience in machine learning, deep learning, or data science.
+Proficiency in Python and ML frameworks like TensorFlow, PyTorch, or Scikit-learn.
+Experience with cloud platforms (AWS, GCP, or Azure) for model training and deployment.
+Strong knowledge of data structures, algorithms, and software engineering principles.
+Experience with containerization and orchestration tools like Docker and Kubernetes.
+Familiarity with MLOps tools such as MLflow, Kubeflow, or SageMaker.
+Strong problem-solving and analytical skills.
+Preferred Qualifications:
+Experience with reinforcement learning or generative AI.
+Familiarity with large-scale distributed computing frameworks like Spark.
+Background in graph neural networks or time-series forecasting.
+Contributions to open-source ML projects.
