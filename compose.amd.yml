@@ -1,16 +1,11 @@
+version: '3.8'
+
 services:
   rizzume_inference:
     build: .
     image: rizzume_inference
     ports:
       - "8000:8000"
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            capabilities: ["gpu"]
-            count: all
     depends_on:
       - ollama
     networks:
@@ -20,19 +15,22 @@ services:
 
   ollama:
     container_name: ollama
-    image: ollama/ollama
+    image: ollama/ollama:rocm
+    restart: always
     ports:
       - "11434:11434"
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - driver: nvidia
-            capabilities: ["gpu"]
-            count: all
     networks:
       - rizzume_network
+    volumes:
+      - ollama:/root/.ollama
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    command: ["ollama", "serve"]
 
 networks:
   rizzume_network:
     driver: bridge
+
+volumes:
+  ollama:
