@@ -1,0 +1,38 @@
+services:
+  rizzume_inference:
+    build: .
+    image: rizzume_inference
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: ["gpu"]
+            count: all
+    depends_on:
+      - ollama
+    networks:
+      - rizzume_network
+    volumes:
+      - ./inference:/usr/local/app/inference  # Mount inference folder for hot-reloading
+
+  ollama:
+    container_name: ollama
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            capabilities: ["gpu"]
+            count: all
+    networks:
+      - rizzume_network
+
+networks:
+  rizzume_network:
+    driver: bridge
