@@ -1,4 +1,4 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Literal, Optional
 from pydantic import BaseModel, EmailStr, Field, HttpUrl
 
 class WebsiteLinks(BaseModel):
@@ -17,6 +17,8 @@ class PersonalInfo(BaseModel):
 
 class Education(BaseModel):
     title: str
+    start_date: str
+    end_date: str
     institute: str
     graduation: str
     score: str
@@ -28,7 +30,8 @@ class Skill(BaseModel):
 class Project(BaseModel):
     title: str
     organization: str
-    duration: str
+    start_date: str
+    end_date: str
     link: Optional[HttpUrl]
     description: str
     tags: List[str]
@@ -36,18 +39,20 @@ class Project(BaseModel):
 class Experience(BaseModel):
     role: str
     company: str
+    start_date: str
+    end_date: str
     about_the_company: Optional[str] = Field(..., alias="about the company")
     location: str
-    onsite_remote: Optional[str] = Field(...,alias="onsite / remote")
-    description: str
+    mode: Optional[str] = Literal["Remote","Onsite"]
     tags: List[str]
+    description: str
 
 class Certification(BaseModel):
     title: str
     organization: str
     link: Optional[HttpUrl]
-    year: str
-    tags: str
+    date: str
+    tags: List[str]
 
 class Achievement(BaseModel):
     award_title: str
