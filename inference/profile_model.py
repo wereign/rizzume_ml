@@ -1,10 +1,10 @@
-from typing import List, Dict, Literal, Optional
+from typing import List, Literal, Optional
 from pydantic import BaseModel, EmailStr, Field, HttpUrl
+from datetime import datetime
 
 class WebsiteLinks(BaseModel):
-    portfolio: Optional[HttpUrl]
-    linkedIn: Optional[HttpUrl]
-    github: Optional[HttpUrl]
+    platform: str
+    link: Optional[HttpUrl]
 
 class PersonalInfo(BaseModel):
     first_name: str
@@ -13,19 +13,17 @@ class PersonalInfo(BaseModel):
     email: EmailStr
     contact_number: str
     summary: str
-    websites: WebsiteLinks
+    websites: Optional[List[WebsiteLinks]]
 
 class Education(BaseModel):
     title: str
-    start_date: str
-    end_date: str
     institute: str
-    graduation: str
-    score: str
+    start_date: str
+    graduation_date: Optional[str]
+    score: Optional[str]
 
 class Skill(BaseModel):
     name: str
-    tags: str
 
 class Project(BaseModel):
     title: str
@@ -41,7 +39,6 @@ class Experience(BaseModel):
     company: str
     start_date: str
     end_date: str
-    about_the_company: Optional[str] = Field(..., alias="about the company")
     location: str
     mode: Optional[str] = Literal["Remote","Onsite"]
     tags: List[str]
@@ -51,12 +48,21 @@ class Certification(BaseModel):
     title: str
     organization: str
     link: Optional[HttpUrl]
-    date: str
+    date: Optional[datetime]
     tags: List[str]
 
 class Achievement(BaseModel):
     award_title: str
     description: str
+    date: Optional[str]
+
+
+class Publications(BaseModel):
+    title: str
+    publisher: str
+    link : Optional[HttpUrl]
+    date: str
+    tags: List[str]
 
 class MasterProfile(BaseModel):
     personal_info: PersonalInfo
@@ -64,11 +70,11 @@ class MasterProfile(BaseModel):
     skills: List[Skill]
     projects: List[Project]
     experience: List[Experience]
-    certifications: List[Certification]
-    achievements: List[Achievement]
-
+    certifications: Optional[List[Certification]]
+    achievements: Optional[List[Achievement]]
+    publications: Optional[List[Publications]]
 class UserProfile(BaseModel):
-    user_id: int
+    user_id: str
     master_profile: MasterProfile
     all_tags: List[str]
 

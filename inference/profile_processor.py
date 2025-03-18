@@ -1,5 +1,6 @@
 import json
 from classify import predict_item
+from    profile_model import MasterProfile
 
 def template_projects(item):
 
@@ -44,9 +45,9 @@ def template_achievements(item):
     return formatted
 
 
-def predict_on_master_profile(master_profile,all_tags):
+def predict_on_master_profile(master_profile:MasterProfile,all_tags):
 
-    
+    master_profile = json.loads(master_profile.model_dump_json())
     allowed_sections = ['projects', 'experience',
                         'certifications', 'achievements']
     processing_templates = {"projects": template_projects, "experience": template_experiences,

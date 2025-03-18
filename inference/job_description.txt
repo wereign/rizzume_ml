@@ -30,3 +30,23 @@ Experience with reinforcement learning or generative AI.
 Familiarity with large-scale distributed computing frameworks like Spark.
 Background in graph neural networks or time-series forecasting.
 Contributions to open-source ML projects.
+
+----
+Job Description:
+Position: Digital Content Strategist
+Company: GreenTech Media Solutions
+Location: Remote
+
+Requirements:
+1. Strong background in digital content creation and campaign management.
+2. Experience with social media marketing and audience engagement strategies.
+3. Proficiency in video and audio editing tools.
+4. Ability to develop content strategies and execute them across multiple digital platforms.
+5. Prior experience working with NGOs or environmental causes is a plus.
+6. Familiarity with WordPress and SEO best practices.
+
+Responsibilities:
+1. Plan and execute multi-channel content strategies.
+2. Manage social media campaigns to increase engagement.
+3. Create and edit multimedia content (videos, podcasts, etc.).
+4. Collaborate
