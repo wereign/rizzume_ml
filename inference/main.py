@@ -21,6 +21,7 @@ def read_root():
 
 @app.post("/tag_profile")
 def tag_profile(data:UserProfile):
+    print("called")
     master_profile = data.master_profile
     all_tags = data.all_tags
     tagged_profile = predict_on_master_profile(master_profile,all_tags)
