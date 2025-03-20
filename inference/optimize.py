@@ -50,6 +50,11 @@ def optimize_profile(job_description: str, profile_json: dict, model: str = MODE
     
     # Create an Ollama client
     client = ollama.Client(host="http://ollama:11434")
+    model_list = client.list()
+    client.pull(model=MODEL)
+    print()
+    print(model_list,type(model_list))
+    
     
     # Send the chat request to Ollama
     response = client.chat(model=model, messages=messages)
