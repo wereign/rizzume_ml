@@ -1,3 +1,5 @@
+import json
+from pprint import pprint
 import requests
 data = {
   "user_id": "67d174ea565c814c23f10ab3",
@@ -223,7 +225,13 @@ Responsibilities:
 4. Collaborate
 """
 
-data = {"user":data,"job_description":job_description}
+selected_tags = [ "campaign",
+    "social media",
+    "website development",
+    "news",
+    "content creation"]
+data = {"user":data,"job_description":job_description,'selected_tags':selected_tags}
+
 response =requests.post('http://localhost:8000/optimize_profile',json=data)
 print(response.status_code)
-print(response.content)
+pprint(json.loads(response.content))
