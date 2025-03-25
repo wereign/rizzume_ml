@@ -1,22 +1,23 @@
 from typing import List, Union
 from profile_model import UserProfile
 from pydantic import BaseModel
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from profile_processor import predict_on_master_profile
 from optimize import optimize_profile
-app = FastAPI()
+from logger import Logger
 
+logger = Logger(__name__).get_logger()
+app = FastAPI()
 
 class OptimizeModel(BaseModel):
     user : UserProfile
     job_description : str
-
-
+    selected_tags : List[str]
 
 # ENDPOINTS
 @app.get('/')
 def read_root():
-    return {"Message":"Home Page of the Inference Page"}
+    return {"Message":"Home Page of the Inference Service"}
 
 
 @app.post("/tag_profile")
@@ -30,13 +31,22 @@ def tag_profile(data:UserProfile):
 
 
 @app.post('/optimize_profile')
-def optimize_profile_endpoint(data:OptimizeModel):
-    print("Got Optimization Request")
-    user = data.user
-    profile = user.master_profile
+def optimize_profile_endpoint(payload:OptimizeModel):
+    
+    logger.info("Optimize Endpoint Invoked")
+    logger.debug(payload)
+    
+    user_profile = payload.user
+    profile = user_profile.master_profile
+    job_description = payload.job_description
+    selected_tags = payload.selected_tags
 
-    job_description = data.job_description
-    optimized_profile = optimize_profile(job_description=job_description,profile_json=profile)
+    # ensure that selected_tags are in all_tags
+    for tag in selected_tags:
+        if tag not in user_profile.all_tags:
+            return HTTPException(status_code=400,details='Selected tags are not in the list of all tags created by the user')
+
+    optimized_profile = optimize_profile(job_description=job_description,profile=profile,selected_tags=selected_tags)
 
     return optimized_profile
     
