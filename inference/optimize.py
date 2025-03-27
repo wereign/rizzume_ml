@@ -1,10 +1,14 @@
-from pprint import pprint
 import yaml
 import json
 import ollama  # Ollama Python client
 from profile_model import MasterProfile
+from pydantic import BaseModel
 
-MODEL = 'smollm2'
+MODEL = 'command-r7b:latest'
+
+class OptimizationResponseModel(BaseModel):
+    optimized_profile : MasterProfile
+    reasoning: str
 
 def load_job_description(path):
     """Load job description from a text file."""
@@ -19,7 +23,6 @@ def load_json(file_path):
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"Error loading JSON: {e}")
         return None
-    
 
 def filter_selected_sections(profile, selected_tags):
     filtered_profile = {}
@@ -56,7 +59,7 @@ def filter_selected_sections(profile, selected_tags):
         print("Dropped Items Count",dropped_count)
     return filtered_profile
     
-def construct_messages(job_description_str, profile, prompts_path='./inference/prompts.yaml'):
+def construct_messages(job_description_str, profile, prompts_path='./prompts.yaml'):
     """Constructs messages for Ollama chat."""
     with open(prompts_path, 'r', encoding='utf-8') as sf:
         prompts = yaml.safe_load(sf)
@@ -88,13 +91,14 @@ def optimize_profile(job_description: str, profile: MasterProfile, selected_tags
     
     # Create an Ollama client
     client = ollama.Client(host="http://localhost:11434")
-    model_list = client.list()
+    model_list = client.list()['models']
+    if not any(model.get("name") == MODEL for model in model_list):
+            client.pull(MODEL)
     client.pull(model=MODEL)
     print()
-    print(model_list,type(model_list))
     
     # Send the chat request to Ollama
-    response = client.chat(model=model, messages=messages,format=MasterProfile.model_json_schema())
+    response = client.chat(model=model, messages=messages,format=OptimizationResponseModel.model_json_schema())
     
     # Extract response text
     response_txt = response.get('message', {}).get('content', 'No response received.')

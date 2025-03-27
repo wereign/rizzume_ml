@@ -1,1 +1,0 @@
-uvicorn --app-dir ./inference main:app --port 8000 --reload

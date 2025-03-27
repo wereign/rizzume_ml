@@ -13,7 +13,7 @@ system_prompt : >
   1. The job title and required qualifications.
   2. Key responsibilities and skills mentioned in the job description.
   3. Industry-specific language and technical terminology.
-  4. The candidate's career progression and how to present it compellingly.  
+  4. The candidate's career progression and how to present it compellingly.
   
   Your ultimate goal is to transform each resume into a powerful, customized tool that positions the applicant as the ideal candidate for the role.
 
@@ -31,6 +31,7 @@ user_prompt : >
     Retain JSON formatting.
     Do not invent experience; only reframe and enhance existing information.
     Optimize the given user profile accordingly.
+    Provide reasoning for your changes and optimizations.
   
   Here is the user information : 
   {profile}

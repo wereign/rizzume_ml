@@ -40,7 +40,7 @@ class Experience(BaseModel):
     start_date: str
     end_date: str
     location: str
-    mode: Optional[str] = Literal["Remote","Onsite"]
+    mode: Optional[Literal["Remote", "Onsite"]]  # No default, remains optional
     tags: List[str]
     description: str
 
@@ -77,4 +77,3 @@ class UserProfile(BaseModel):
     user_id: str
     master_profile: MasterProfile
     all_tags: List[str]
-
