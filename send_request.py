@@ -181,7 +181,7 @@ payload = {
 # API Call with Error Handling
 try:
     response = requests.post(
-        "http://localhost:8000/optimize_profile", json=payload, timeout=500
+        "http://localhost:8080/optimize_profile", json=payload, timeout=500
     )
 
     # Check if response status is OK (200)
