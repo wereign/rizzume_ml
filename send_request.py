@@ -1,22 +1,23 @@
 import json
+from pprint import pprint
 import requests
 
 user_data = {
-    "user_id": "67d174ea565c814c23f10ab3",
     "master_profile": {
         "personal_info": {
+            "title":"Dr",
             "first_name": "Aisha",
             "middle_name": "Zeenat",
             "last_name": "Iqbal",
             "summary": "Creative and resourceful BAJMC graduate with a passion for storytelling and mass communication in digital media.",
             "email": "aisha.iqbal@example.com",
             "contact_number": "+91 9765432108",
+            "city":"Bangalore",
+            "country":"India",
+            "pin_code":"560029",
             "websites": [
                 {"platform": "portfolio", "link": "https://aishaiqbal.com"},
-                {
-                    "platform": "linkedIn",
-                    "link": "https://www.linkedin.com/in/aisha-iqbal",
-                },
+                {"platform": "linkedIn", "link": "https://www.linkedin.com/in/aisha-iqbal"},
                 {"platform": "github", "link": "https://github.com/aishaiqbal"},
             ],
         },
@@ -38,10 +39,7 @@ user_data = {
         ],
         "skills": [
             {"name": "Journalism", "tags": ["writing", "reporting", "news"]},
-            {
-                "name": "Digital Media",
-                "tags": ["campaigns", "social media", "marketing"],
-            },
+            {"name": "Digital Media", "tags": ["campaigns", "social media", "marketing"]},
             {"name": "Editing", "tags": ["video editing", "audio editing"]},
             {"name": "Content Creation", "tags": ["content strategy", "copywriting"]},
         ],
@@ -172,15 +170,33 @@ selected_tags = [
     "news",
     "content creation",
 ]
+
 payload = {
+    "llm_model":"smollm2",
     "user": user_data,
     "job_description": job_description,
     "selected_tags": selected_tags,
 }
-response = requests.post(
-    "http://localhost:8000/optimize_profile", json=payload, timeout=400
-)
 
-print(response.status_code)
-optimized_resume = json.loads(response.json())
-print(type(optimized_resume))
+# API Call with Error Handling
+try:
+    response = requests.post(
+        "http://localhost:8000/optimize_profile", json=payload, timeout=500
+    )
+
+    # Check if response status is OK (200)
+    if response.status_code == 200:
+        try:
+            optimized_resume = response.json()
+            print("Optimized Resume:", json.dumps(optimized_resume, indent=4))
+        except json.JSONDecodeError:
+            print("Error: Failed to decode JSON response.")
+    else:
+        print(f"API Request failed with status code: {response.status_code}")
+        print("Response:")
+        pprint(response.json())
+
+except requests.Timeout:
+    print("Error: API request timed out.")
+except requests.RequestException as e:
+    print(f"Error: {e}")

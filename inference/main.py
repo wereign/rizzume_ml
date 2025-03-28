@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Literal
 from profile_model import UserProfile
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
@@ -9,8 +9,10 @@ from logger import Logger
 logger = Logger(__name__).get_logger()
 app = FastAPI()
 
+
 class OptimizeModel(BaseModel):
     user : UserProfile
+    llm_model: Literal['llama3.1','llama3.2','smollm2','gemma3:4b','gemma3:1b','command-r7b']
     job_description : str
     selected_tags : List[str]
 
@@ -29,7 +31,6 @@ def tag_profile(data:UserProfile):
 
     return tagged_profile
 
-
 @app.post('/optimize_profile')
 def optimize_profile_endpoint(payload:OptimizeModel):
     
@@ -40,13 +41,14 @@ def optimize_profile_endpoint(payload:OptimizeModel):
     profile = user_profile.master_profile
     job_description = payload.job_description
     selected_tags = payload.selected_tags
+    model = payload.llm_model
 
-    # ensure that selected_tags are in all_tags
-    for tag in selected_tags:
-        if tag not in user_profile.all_tags:
-            return HTTPException(status_code=400,details='Selected tags are not in the list of all tags created by the user')
-
-    optimized_profile = optimize_profile(job_description=job_description,profile=profile,selected_tags=selected_tags)
-
+    # # ensure that selected_tags are in all_tags
+    # for tag in selected_tags:
+    #     if tag not in user_profile.all_tags:
+    #         return HTTPException(status_code=400,details='Selected tags are not in the list of all tags created by the user')
+    
+    logger.info("Optimizing")
+    optimized_profile = optimize_profile(model_name=model,job_description=job_description,profile=profile,selected_tags=selected_tags)
     return optimized_profile
     

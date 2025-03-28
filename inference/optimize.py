@@ -3,9 +3,10 @@ import json
 import ollama  # Ollama Python client
 from profile_model import MasterProfile
 from pydantic import BaseModel
+from logger import Logger
 
 MODEL = 'command-r7b:latest'
-
+logger = Logger(__name__,log_level="DEBUG").get_logger()
 class OptimizationResponseModel(BaseModel):
     optimized_profile : MasterProfile
     reasoning: str
@@ -56,7 +57,8 @@ def filter_selected_sections(profile, selected_tags):
             # Only add the section if there are matching items
             if filtered_section:
                 filtered_profile[section] = filtered_section
-        print("Dropped Items Count",dropped_count)
+        logger.debug(f"Dropped Items Count {dropped_count}")
+        
     return filtered_profile
     
 def construct_messages(job_description_str, profile, prompts_path='./prompts.yaml'):
@@ -71,9 +73,12 @@ def construct_messages(job_description_str, profile, prompts_path='./prompts.yam
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt}
     ]
+
+    logger.debug("Constructed Messages")
+    logger.debug(messages)
     return messages
 
-def optimize_profile(job_description: str, profile: MasterProfile, selected_tags:list, model: str = MODEL):
+def optimize_profile(model_name,job_description: str, profile: MasterProfile, selected_tags:list, model: str = MODEL):
     """
     Optimizes the profile based on the job description using Ollama.
 
@@ -92,17 +97,15 @@ def optimize_profile(job_description: str, profile: MasterProfile, selected_tags
     # Create an Ollama client
     client = ollama.Client(host="http://localhost:11434")
     model_list = client.list()['models']
-    if not any(model.get("name") == MODEL for model in model_list):
-            client.pull(MODEL)
-    client.pull(model=MODEL)
-    print()
+    if not any(model.get("name") == model_name for model in model_list):
+            client.pull(model_name)
     
+    logger.debug(f"Sending messages to {model_name}")
     # Send the chat request to Ollama
-    response = client.chat(model=model, messages=messages,format=OptimizationResponseModel.model_json_schema())
-    
+    response = client.chat(model=model_name, messages=messages,format=OptimizationResponseModel.model_json_schema())
+    logger.debug(response)
     # Extract response text
     response_txt = response.get('message', {}).get('content', 'No response received.')
-    
     return response_txt
 
 

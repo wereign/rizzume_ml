@@ -1,5 +1,5 @@
-from typing import List, Literal, Optional
-from pydantic import BaseModel, EmailStr, Field, HttpUrl
+from typing import List, Literal, Optional, Union
+from pydantic import BaseModel, EmailStr, HttpUrl
 from datetime import datetime
 
 class WebsiteLinks(BaseModel):
@@ -7,6 +7,7 @@ class WebsiteLinks(BaseModel):
     link: Optional[HttpUrl]
 
 class PersonalInfo(BaseModel):
+    title:Optional[str]
     first_name: str
     middle_name: Optional[str]
     last_name: Optional[str]
@@ -15,11 +16,14 @@ class PersonalInfo(BaseModel):
     summary: str
     websites: Optional[List[WebsiteLinks]]
 
+    city: Optional[str]
+    country : Optional[str]
+    pin_code : Optional[str]
 class Education(BaseModel):
     title: str
     institute: str
     start_date: str
-    graduation_date: Optional[str]
+    graduation_date: Union[str, datetime]
     score: Optional[str]
 
 class Skill(BaseModel):
@@ -38,7 +42,7 @@ class Experience(BaseModel):
     role: str
     company: str
     start_date: str
-    end_date: str
+    end_date: Union[str, datetime]
     location: str
     mode: Optional[Literal["Remote", "Onsite"]]  # No default, remains optional
     tags: List[str]
@@ -54,8 +58,8 @@ class Certification(BaseModel):
 class Achievement(BaseModel):
     award_title: str
     description: str
-    date: Optional[str]
-
+    date: Optional[datetime]
+    tags: List[str]
 
 class Publications(BaseModel):
     title: str
@@ -74,6 +78,5 @@ class MasterProfile(BaseModel):
     achievements: Optional[List[Achievement]]
     publications: Optional[List[Publications]]
 class UserProfile(BaseModel):
-    user_id: str
     master_profile: MasterProfile
     all_tags: List[str]
