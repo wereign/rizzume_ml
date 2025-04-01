@@ -26,7 +26,7 @@ class Education(BaseModel):
     graduation_date: Union[str, datetime]
     score: Optional[str]
 
-class Skill(BaseModel):
+class Skill (BaseModel):
     name: str
 
 class Project(BaseModel):
@@ -79,4 +79,8 @@ class MasterProfile(BaseModel):
     publications: Optional[List[Publications]]
 class UserProfile(BaseModel):
     master_profile: MasterProfile
-    all_tags: List[str]
+    # all_tags: List[str]
+
+
+if __name__ == "__main__":
+    print(MasterProfile.model_json_schema())

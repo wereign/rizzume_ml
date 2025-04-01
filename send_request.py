@@ -5,174 +5,176 @@ import requests
 user_data = {
     "master_profile": {
         "personal_info": {
-            "title":"Dr",
-            "first_name": "Aisha",
-            "middle_name": "Zeenat",
-            "last_name": "Iqbal",
-            "summary": "Creative and resourceful BAJMC graduate with a passion for storytelling and mass communication in digital media.",
-            "email": "aisha.iqbal@example.com",
-            "contact_number": "+91 9765432108",
-            "city":"Bangalore",
-            "country":"India",
-            "pin_code":"560029",
+            "first_name": "Emily",
+            "middle_name": "Grace",
+            "last_name": "Johnson",
+            "summary": "Passionate product designer with experience in UI/UX design, prototyping, and user research.",
+            "email": "emily.johnson@example.com",
+            "contact_number": "+1 987 654 3210",
             "websites": [
-                {"platform": "portfolio", "link": "https://aishaiqbal.com"},
-                {"platform": "linkedIn", "link": "https://www.linkedin.com/in/aisha-iqbal"},
-                {"platform": "github", "link": "https://github.com/aishaiqbal"},
+                {"platform": "portfolio", "link": "https://emilyjohnson.com"},
+                {
+                    "platform": "linkedIn",
+                    "link": "https://www.linkedin.com/in/emily-johnson",
+                },
+                {"platform": "github", "link": "https://github.com/emilyjohnson"},
             ],
+            "city": "New York",
+            "title": "Product Designer",
+            "country": "USA",
+            "pin_code": "07008",
         },
         "education": [
             {
-                "title": "Bachelor of Arts in Journalism and Mass Communication",
-                "institute": "Jamia Millia Islamia",
-                "start_date": "2023-01-01",
-                "graduation_date": "2026-01-01",
-                "score": "8.0",
+                "title": "Bachelor of Fine Arts in Graphic Design",
+                "institute": "Parsons School of Design",
+                "start_date": "2019-09-01T00:00:00.000Z",
+                "graduation_date": "2023-06-01T00:00:00.000Z",
+                "score": "3.7",
             },
             {
-                "title": "Diploma in Digital Media",
-                "institute": "Udemy",
-                "start_date": "2022-06-01",
-                "graduation_date": "2022-12-01",
+                "title": "UI/UX Design Bootcamp",
+                "institute": "General Assembly",
+                "start_date": "2022-01-01T00:00:00.000Z",
+                "graduation_date":  "2022-04-01T00:00:00.000Z",
                 "score": None,
             },
         ],
         "skills": [
-            {"name": "Journalism", "tags": ["writing", "reporting", "news"]},
-            {"name": "Digital Media", "tags": ["campaigns", "social media", "marketing"]},
-            {"name": "Editing", "tags": ["video editing", "audio editing"]},
-            {"name": "Content Creation", "tags": ["content strategy", "copywriting"]},
+            {"name": "UI/UX Design"},
+            {"name": "Graphic Design"},
+            {"name": "Wireframing"},
+            {"name": "User Testing"},
         ],
         "projects": [
             {
-                "title": "Social Media Campaign for NGO",
-                "organization": "Self",
-                "start_date": "2024-05-01",
-                "end_date": "2024-07-01",
-                "link": "https://aishaiqbal.com/ngo-campaign",
-                "description": "Created and managed a social media campaign for a non-governmental organization to raise awareness about climate change.",
-                "tags": ["digital media", "campaign", "social media"],
+                "title": "Mobile App Redesign for E-commerce",
+                "organization": "Freelance",
+                "start_date": "2023-02-01T00:00:00.000Z",
+                "end_date":  "2023-04-01T00:00:00.000Z",
+                "link": "https://emilyjohnson.com/mobile-app-redesign",
+                "description": "Redesigned an e-commerce mobile app for improved user experience and aesthetics.",
+                "tags": ["UI/UX design", "mobile app", "e-commerce"],
             },
             {
-                "title": "Online News Platform Development",
-                "organization": "Freelance",
-                "start_date": "2023-11-01",
-                "end_date": "2024-01-01",
-                "link": "https://aishaiqbal.com/news-platform",
-                "description": "Developed an online news platform using WordPress and integrated various digital media features.",
-                "tags": ["website development", "digital media", "news"],
+                "title": "Website Redesign for Local Bakery",
+                "organization": "Self",
+                "start_date": "2023-05-01T00:00:00.000Z",
+                "end_date": "2023-07-01T00:00:00.000Z",
+                "link": "https://emilyjohnson.com/bakery-website",
+                "description": "Created a responsive and visually appealing website for a local bakery.",
+                "tags": ["web design", "UI/UX", "branding"],
             },
         ],
         "experience": [
             {
-                "role": "Journalism Intern",
-                "company": "The Times of India",
-                "location": "Delhi, India",
-                "start_date": "2023-06-01",
-                "end_date": "2023-08-01",
+                "role": "UI/UX Designer Intern",
+                "company": "Design Studio",
+                "location": "New York, USA",
+                "start_date": "2022-06-01T00:00:00.000Z",
+                "end_date": "2022-08-01T00:00:00.000Z",
                 "mode": "Onsite",
-                "description": "Assisted in news reporting, writing articles, and conducting interviews for both print and online platforms.",
-                "tags": ["journalism", "reporting", "writing"],
+                "description": "Worked on prototyping, user research, and UI design for multiple digital products.",
+                "tags": ["UI/UX design", "user research", "prototyping"],
             },
             {
-                "role": "Content Creator",
-                "company": "Freelance",
+                "role": "Freelance Graphic Designer",
+                "company": "Self",
                 "location": "Remote",
-                "start_date": "2023-02-01",
-                "end_date": "2023-04-01",
+                "start_date": "2022-09-01T00:00:00.000Z",
+                "end_date": "2023-01-01T00:00:00.000Z",
                 "mode": "Remote",
-                "description": "Created content for various digital platforms, focusing on engaging with a younger audience.",
-                "tags": ["content creation", "social media", "writing"],
+                "description": "Designed logos, websites, and marketing materials for clients across industries.",
+                "tags": ["graphic design", "branding", "logos"],
             },
         ],
         "certifications": [
             {
-                "title": "Digital Marketing Certification",
-                "organization": "Google",
-                "link": "https://google.com/certificate/abc123",
-                "date": "2022-08-01",
-                "tags": ["marketing", "digital"],
-            },
-            {
-                "title": "Video Production Certification",
-                "organization": "Coursera",
-                "link": "https://coursera.org/certificate/video-production",
-                "date": "2023-05-01",
-                "tags": ["video production", "editing"],
-            },
+                "title": "UI/UX Design Certification",
+                "organization": "General Assembly",
+                "link": "https://generalassembly.com/certificate/ux-design",
+                "date": "2022-04-01T00:00:00.000Z",
+                "tags": ["design", "prototyping"],
+            }
         ],
         "achievements": [
             {
-                "award_title": "Best Journalism Internship",
-                "description": "Awarded for excellence in reporting and writing at The Times of India internship program.",
-                "date": "2023-08-01",
-                "tags": ["reporting", "writing"],
-            },
-            {
-                "award_title": "Top 10 Social Media Campaigns",
-                "description": "Ranked in the top 10 best social media campaigns for environmental awareness in 2024.",
-                "date": "2024-06-01",
-                "tags": ["social media"],
-            },
+                "award_title": "Best Product Design",
+                "description": "Won the award for best product design in a national competition in 2023.",
+                "date": "2023-06-01T00:00:00.000Z",
+                "tags": ["design", "product design", "award"],
+            }
         ],
         "publications": [
             {
-                "title": "IMPACT OF DIGITAL MEDIA ON SOCIETY",
-                "publisher": "IEEE",
-                "link": "https://ieee.com/2010",
-                "date": "2024-05-01",
-                "tags": ["digital media", "writing", "research"],
-            }
+                "title": "Designing the Future: UI/UX in 2025",
+                "publisher": "Design Trends Journal",
+                "link": "https://designtrendsjournal.com/designing-the-future",
+                "date": "2023-06-01T00:00:00.000Z",
+                "tags": ["UI/UX design", "future trends", "product design"],
+            },
+            {
+                "title": "Prototyping for User-Centered Design",
+                "publisher": "UX Design Weekly",
+                "link": "https://uxdesignweekly.com/prototyping-for-user-centered-design",
+                "date": "2022-11-01T00:00:00.000Z",
+                "tags": ["prototyping", "UI/UX design", "user-centered design"],
+            },
         ],
     },
     "all_tags": [
-        "journalism",
-        "digital media",
-        "writing",
-        "reporting",
-        "editing",
-        "campaign",
-        "social media",
-        "website development",
-        "news",
-        "content creation",
-        "marketing",
-        "video production",
-        "research",
+        "UI/UX design",
+        "graphic design",
+        "wireframing",
+        "user testing",
+        "prototyping",
+        "user research",
+        "branding",
+        "Photoshop",
+        "Illustrator",
+        "Sketch",
+        "Figma",
+        "InVision",
+        "future trends",
+        "product design",
+        "user-centered design",
     ],
 }
 
 job_description = """
 Job Description:
-Position: Digital Content Strategist
-Company: GreenTech Media Solutions
-Location: Remote
+Position: UI/UX Designer
+Company: Innovative Design Solutions
+Location: Remote / New York, USA
 
 Requirements:
-1. Strong background in digital content creation and campaign management.
-2. Experience with social media marketing and audience engagement strategies.
-3. Proficiency in video and audio editing tools.
-4. Ability to develop content strategies and execute them across multiple digital platforms.
-5. Prior experience working with NGOs or environmental causes is a plus.
-6. Familiarity with WordPress and SEO best practices.
+Strong background in UI/UX design, graphic design, and user research.
+Proficiency in design tools like Figma, Sketch, Photoshop, Illustrator, and InVision.
+Experience in wireframing, prototyping, and user testing.
+Ability to conduct user research and translate insights into intuitive design solutions.
+Strong portfolio showcasing mobile and web design projects.
+Experience in branding and digital product aesthetics is a plus.
 
 Responsibilities:
-1. Plan and execute multi-channel content strategies.
-2. Manage social media campaigns to increase engagement.
-3. Create and edit multimedia content (videos, podcasts, etc.).
-4. Collaborate
-"""
 
+Design and prototype user-friendly interfaces for web and mobile applications.
+Conduct user research, usability testing, and gather feedback to improve designs.
+Develop wireframes, user flows, and high-fidelity UI mockups.
+Collaborate with developers, product managers, and stakeholders to refine design solutions.
+Ensure consistency in branding and user experience across digital products.
+Stay updated on the latest UI/UX trends and best practices.
+
+"""
 selected_tags = [
-    "campaign",
-    "social media",
-    "website development",
-    "news",
-    "content creation",
+    "Figma",
+    "InVision",
+    "future trends",
+    "product design",
+    "user-centered design",
 ]
 
 payload = {
-    "llm_model":"smollm2",
+    "llm_model": "smollm2",
     "user": user_data,
     "job_description": job_description,
     "selected_tags": selected_tags,
@@ -188,13 +190,14 @@ try:
     if response.status_code == 200:
         try:
             optimized_resume = response.json()
-            print("Optimized Resume:", json.dumps(optimized_resume, indent=4))
+            print("Response:")
+            print(optimized_resume.keys())
+            print(type(optimized_resume))
+            pprint(optimized_resume)
         except json.JSONDecodeError:
             print("Error: Failed to decode JSON response.")
     else:
         print(f"API Request failed with status code: {response.status_code}")
-        print("Response:")
-        pprint(response.json())
 
 except requests.Timeout:
     print("Error: API request timed out.")

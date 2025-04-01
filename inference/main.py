@@ -1,7 +1,9 @@
+import json
 from typing import List, Literal
-from profile_model import UserProfile
+from profile_model import MasterProfile, UserProfile
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from profile_processor import predict_on_master_profile
 from optimize import optimize_profile
 from logger import Logger
@@ -10,11 +12,21 @@ logger = Logger(__name__).get_logger()
 app = FastAPI()
 
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Or specify specific domains: ["http://localhost:3000"]
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
 class OptimizeModel(BaseModel):
-    user : UserProfile
+    master_profile : MasterProfile
     llm_model: Literal['llama3.1','llama3.2','smollm2','gemma3:4b','gemma3:1b','command-r7b']
     job_description : str
     selected_tags : List[str]
+
+
 
 # ENDPOINTS
 @app.get('/')
@@ -37,8 +49,8 @@ def optimize_profile_endpoint(payload:OptimizeModel):
     logger.info("Optimize Endpoint Invoked")
     logger.debug(payload)
     
-    user_profile = payload.user
-    profile = user_profile.master_profile
+    
+    profile = payload.master_profile
     job_description = payload.job_description
     selected_tags = payload.selected_tags
     model = payload.llm_model
@@ -50,5 +62,5 @@ def optimize_profile_endpoint(payload:OptimizeModel):
     
     logger.info("Optimizing")
     optimized_profile = optimize_profile(model_name=model,job_description=job_description,profile=profile,selected_tags=selected_tags)
-    return optimized_profile
+    return json.loads(optimized_profile)
     

@@ -11,7 +11,7 @@ response = client.chat.completions.create(
     {"role": "system", "content": "You are a helpful assistant."},
     {"role": "user", "content": "Who won the world series in 2020?"},
     {"role": "assistant", "content": "The LA Dodgers won in 2020."},
-    {"role": "user", "content": "Where was it played?"}
+    {"role": "user", "content": "When can I see the full moon?"}
   ]
 )
 print(response.choices[0].message.content)
