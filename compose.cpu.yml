@@ -3,7 +3,7 @@ services:
     build: .
     image: rizzume_inference
     ports:
-      - "8000:8000"
+      - "8080:8080"
     depends_on:
       - ollama
     networks:

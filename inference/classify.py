@@ -1,7 +1,5 @@
 from transformers import pipeline
-from logger import Logger
 
-logger = Logger(__name__,"DEBUG").get_logger()
 PREDICTION_THRESHOLD = 0.45
 classifier = pipeline(model="facebook/bart-large-mnli",device='cuda:0')
 
