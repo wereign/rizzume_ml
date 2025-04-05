@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from profile_processor import predict_on_master_profile
 from optimize import optimize_profile
-
+from new_optimize import OptimizeResume
 
 app = FastAPI()
 
@@ -35,7 +35,7 @@ def read_root():
 
 @app.post("/tag_profile")
 def tag_profile(data:UserProfile):
-    print("called")
+    print("Tag Profile Called")
     master_profile = data.master_profile
     all_tags = data.all_tags
     tagged_profile = predict_on_master_profile(master_profile,all_tags)
@@ -48,18 +48,11 @@ def optimize_profile_endpoint(payload:OptimizeModel):
     print("Optimize Endpoint Invoked")
     print("Payload",payload)
     
-    
-    profile = payload.master_profile
+    master_profile = payload.master_profile
     job_description = payload.job_description
     selected_tags = payload.selected_tags
     model = payload.llm_model
-
-    # # ensure that selected_tags are in all_tags
-    # for tag in selected_tags:
-    #     if tag not in user_profile.all_tags:
-    #         return HTTPException(status_code=400,details='Selected tags are not in the list of all tags created by the user')
-    
     print("Optimizing")
-    optimized_profile = optimize_profile(model_name=model,job_description=job_description,profile=profile,selected_tags=selected_tags)
-    return json.loads(optimized_profile)
+    optimized_profile = OptimizeResume(**payload.model_dump()).tune_resume()
+    return optimized_profile
     

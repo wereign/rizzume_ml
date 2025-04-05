@@ -1,8 +1,4 @@
-import json
-from pprint import pprint
-import requests
-
-payload = {
+{
     "master_profile": {
         "personal_info": {
             "first_name": "Emily",
@@ -116,6 +112,7 @@ payload = {
                 "mode": "Remote",
                 "description": "Designed logos, websites, and marketing materials for clients across industries.",
                 "tags": [
+                    "UI/UX design",
                     "graphic design",
                     "branding",
                     "logos"
@@ -129,6 +126,7 @@ payload = {
                 "link": "https://generalassembly.com/certificate/ux-design",
                 "date": "2022-04-01",
                 "tags": [
+                    "UI/UX design",
                     "design",
                     "prototyping"
                 ]
@@ -178,30 +176,6 @@ payload = {
         "InVision",
         "future trends",
         "product design",
-        "user-centered design"
+        "UI/UX design"
     ]
 }
-
-# API Call with Error Handling
-try:
-    response = requests.post(
-        "http://localhost:8080/optimize_profile", json=payload, timeout=500
-    )
-
-    # Check if response status is OK (200)
-    if response.status_code == 200:
-        try:
-            optimized_resume = response.json()
-            print("Response:")
-            print(optimized_resume.keys())
-            print(type(optimized_resume))
-            pprint(optimized_resume)
-        except json.JSONDecodeError:
-            print("Error: Failed to decode JSON response.")
-    else:
-        print(f"API Request failed with status code: {response.status_code}")
-
-except requests.Timeout:
-    print("Error: API request timed out.")
-except requests.RequestException as e:
-    print(f"Error: {e}")

@@ -2,9 +2,9 @@ from typing import List, Literal, Optional, Union
 from pydantic import BaseModel, EmailStr, HttpUrl
 from datetime import datetime
 
-class WebsiteLinks(BaseModel):
+class WebsiteLink(BaseModel):
     platform: str
-    link: Optional[HttpUrl]
+    link: HttpUrl
 
 class PersonalInfo(BaseModel):
     title:Optional[str]
@@ -14,7 +14,7 @@ class PersonalInfo(BaseModel):
     email: EmailStr
     contact_number: str
     summary: str
-    websites: Optional[List[WebsiteLinks]]
+    websites: Optional[List[WebsiteLink]]
 
     city: Optional[str]
     country : Optional[str]
@@ -61,7 +61,7 @@ class Achievement(BaseModel):
     date: Optional[datetime]
     tags: List[str]
 
-class Publications(BaseModel):
+class Publication(BaseModel):
     title: str
     publisher: str
     link : Optional[HttpUrl]
@@ -76,10 +76,10 @@ class MasterProfile(BaseModel):
     experience: List[Experience]
     certifications: Optional[List[Certification]]
     achievements: Optional[List[Achievement]]
-    publications: Optional[List[Publications]]
+    publications: Optional[List[Publication]]
 class UserProfile(BaseModel):
     master_profile: MasterProfile
-    # all_tags: List[str]
+    all_tags: List[str]
 
 
 if __name__ == "__main__":

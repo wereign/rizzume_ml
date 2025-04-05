@@ -76,7 +76,7 @@ def construct_messages(job_description_str, profile, prompts_path='./prompts.yam
     print(messages)
     return messages
 
-def optimize_profile(model_name,job_description: str, profile: MasterProfile, selected_tags:list, model: str = MODEL):
+def optimize_profile(model_name,job_description: str, profile: MasterProfile, selected_tags:list):
     """
     Optimizes the profile based on the job description using Ollama.
 
