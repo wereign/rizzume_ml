@@ -4,11 +4,13 @@ from profile_model import MasterProfile, UserProfile
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from profile_processor import predict_on_master_profile
-from optimize import optimize_profile
-from new_optimize import OptimizeResume
+
+from optimize import OptimizeResume
+from tag_sections import predict_on_master_profile
+from generate_all_tags import TagGenerator
 
 app = FastAPI()
+
 
 
 app.add_middleware(
@@ -47,12 +49,14 @@ def optimize_profile_endpoint(payload:OptimizeModel):
     
     print("Optimize Endpoint Invoked")
     print("Payload",payload)
-    
-    master_profile = payload.master_profile
-    job_description = payload.job_description
-    selected_tags = payload.selected_tags
-    model = payload.llm_model
-    print("Optimizing")
     optimized_profile = OptimizeResume(**payload.model_dump()).tune_resume()
     return optimized_profile
+
+@app.post('/generate_all_tags')
+def suggest_all_tags(payload:MasterProfile):
     
+    print("Generating tags for suggestion")
+    tg = TagGenerator()
+    generated_tags = tg.generate_all_tags(payload)
+
+    return generated_tags

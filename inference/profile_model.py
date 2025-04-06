@@ -36,8 +36,8 @@ class Project(BaseModel):
     end_date: str
     link: Optional[HttpUrl]
     description: str
-    tags: List[str]
-
+    tags: List[str] 
+    relevance: Optional[int] = None  # <--- This is the key fix
 class Experience(BaseModel):
     role: str
     company: str
@@ -47,6 +47,7 @@ class Experience(BaseModel):
     mode: Optional[Literal["Remote", "Onsite"]]  # No default, remains optional
     tags: List[str]
     description: str
+    relevance: Optional[int] = None  # <--- This is the key fix
 
 class Certification(BaseModel):
     title: str

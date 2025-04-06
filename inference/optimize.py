@@ -1,114 +1,143 @@
+from pprint import pprint
+from typing import List
 import yaml
 import json
-import ollama  # Ollama Python client
-from profile_model import MasterProfile
+import ollama
+from copy import deepcopy
+from profile_model import MasterProfile,  Project, Experience
 from pydantic import BaseModel
 
-MODEL = 'command-r7b:latest'
-class OptimizationResponseModel(BaseModel):
-    optimized_profile : MasterProfile
-    reasoning: str
+ALL_MODELS = ['llama3.2', 'smollm2', 'gemma3:4b', 'gemma3:1b', 'command-r7b']
 
-def load_job_description(path):
-    """Load job description from a text file."""
-    with open(path, 'r', encoding='utf-8') as file:
-        return file.read()
+class ModelOutput(BaseModel):
+    description : str
+    relevance : int
 
-def load_json(file_path):
-    """Load a JSON file into a dictionary."""
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            return json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"Error loading JSON: {e}")
-        return None
+class OptimizeResume():
+    def __init__(self, llm_model, master_profile: MasterProfile, job_description: str, selected_tags: list, prompts_path: str = './prompts.yaml'):
+        self.client = ollama.Client()
+        if llm_model in ALL_MODELS:
+            self.model_name = llm_model
 
-def filter_selected_sections(profile, selected_tags):
-    filtered_profile = {}
+        with open(prompts_path, 'r', encoding='utf-8') as p_file:
+            self.prompts = yaml.safe_load(p_file)
 
-    for section, items in profile.items():
-        # Keep personal_info unchanged
-        if section == "personal_info":
-            filtered_profile[section] = items
-            continue
+        self.job_description = job_description
+        self.master_profile = MasterProfile.model_validate(master_profile)
+        self.selected_tags = selected_tags
+
+        self.filtered_profile = None
+        self.tuned_profile = None
+
+    def filter_sections(self):
+
+        print("Filtering Sections")
+        def has_matching_tag(tags: List[str]) -> bool:
+            return any(tag in selected_tags for tag in tags)
+
+        filtered_profile = deepcopy(self.master_profile)
+        master_profile = self.master_profile
+        selected_tags = self.selected_tags
         
-        dropped_count = {}
-        # Ensure we only process lists (e.g., education, skills, etc.)
-        if isinstance(items, list):
-            filtered_section = []
-             
-            for item in items:
-                # If 'tags' exist and at least one matches, keep the item
-                if 'tags' in item and any(tag in selected_tags for tag in item['tags']):
-                    filtered_section.append(item)
-                
+        filtered_profile.projects = [
+            proj for proj in master_profile.projects if has_matching_tag(proj.tags)]
+        filtered_profile.experience = [
+            exp for exp in master_profile.experience if has_matching_tag(exp.tags)]
 
-                # If 'tags' is absent, keep the item by default
-                elif 'tags' not in item:
-                    filtered_section.append(item)
-                else:
-                    if section in dropped_count:
-                        dropped_count[section] += 1
-                    else:
-                        dropped_count[section] = 1
+        if master_profile.certifications:
+            filtered_profile.certifications = [
+                cert for cert in master_profile.certifications if has_matching_tag(cert.tags)]
+            if not filtered_profile.certifications:
+                filtered_profile.certifications = None
 
-            # Only add the section if there are matching items
-            if filtered_section:
-                filtered_profile[section] = filtered_section
-        print(f"Dropped Items Count {dropped_count}")
+        if master_profile.achievements:
+            filtered_profile.achievements = [
+                ach for ach in master_profile.achievements if has_matching_tag(ach.tags)]
+            if not filtered_profile.achievements:
+                filtered_profile.achievements = None
+
+        if master_profile.publications:
+            filtered_profile.publications = [
+                pub for pub in master_profile.publications if has_matching_tag(pub.tags)]
+            if not filtered_profile.publications:
+                filtered_profile.publications = None
+
+        self.filtered_profile = filtered_profile
+        return filtered_profile
+
+    def optimize_item(self, section_prompt, section_description):
+        print("Optimizing item")
+        item_message = section_prompt['user_prompt'].format(jd=self.job_description,item=section_description)
+        messages = [
+            {
+                "role": "system", "content": section_prompt['system_prompt']
+            },
+            {
+                "role": "user", "content": item_message 
+            }
+        ]
+
+        response = self.client.chat(model=self.model_name,messages=messages,format=ModelOutput.model_json_schema())
+        return json.loads(response.message.content)
+
+    def tune_resume(self,as_json=True):
+        print("Tuning Resumes")
+        if not self.filtered_profile:
+            self.filter_sections()
+        else:
+            pass
         
-    return filtered_profile
-    
-def construct_messages(job_description_str, profile, prompts_path='./prompts.yaml'):
-    """Constructs messages for Ollama chat."""
-    with open(prompts_path, 'r', encoding='utf-8') as sf:
-        prompts = yaml.safe_load(sf)
+        tuned_profile = deepcopy(self.filtered_profile)
+        # mutable sections - Project | Experience
+
+        tune_dicts = [
+            {"section": tuned_profile.projects,
+                "prompts": self.prompts['projects']},
+            {"section": tuned_profile.experience,
+                "prompts": self.prompts['experience']}
+        ]
+
+        # optimize the mutable sections
+        for td in tune_dicts:
+            section = td['section']
+            prompts = td['prompts']
+
+            for item in section:
+                print('-'*50)
+                print(item)
+                tuned_description = self.optimize_item(
+                    prompts, item.description)
+                item.description = tuned_description['description']
+                item.relevance = tuned_description['relevance']
+
+            print("original section")
+            print(section)    
+            section.sort(key=lambda x:x.relevance,reverse=True)
+            print("Sorted section")
+            print(section)    
         
-    system_prompt = prompts['system_prompt']
-    user_prompt = prompts['user_prompt'].format(profile=profile, jd=job_description_str)
-    
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt}
-    ]
+            
+        self.tuned_profile = tuned_profile
 
-    print("Constructed Messages")
-    print(messages)
-    return messages
-
-def optimize_profile(model_name,job_description: str, profile: MasterProfile, selected_tags:list):
-    """
-    Optimizes the profile based on the job description using Ollama.
-
-    Args:
-        job_description (str): The job description text.
-        profile_json (dict): The profile JSON object.
-        model (str, optional): The Ollama model to use. Defaults to MODEL.
-
-    Returns:
-        str: The response from Ollama.
-    """
-    profile = json.loads(profile.model_dump_json())
-    filtered_profile = filter_selected_sections(profile,selected_tags)
-    messages = construct_messages(job_description, filtered_profile)
-    
-    # Create an Ollama client
-    client = ollama.Client(host="http://localhost:11434")
-    model_list = client.list()['models']
-    if not any(model.get("name") == model_name for model in model_list):
-            client.pull(model_name)
-    
-    print(f"Sending messages to {model_name}")
-    # Send the chat request to Ollama
-    response = client.chat(model=model_name, messages=messages,format=OptimizationResponseModel.model_json_schema())
-    print(response)
-    # Extract response text
-    response_txt = response.get('message', {}).get('content', 'No response received.')
-    return response_txt
+        if as_json:
+            return json.loads(tuned_profile.model_dump_json())
+        else:
+            self.tuned_profile
+        
 
 
 if __name__ == "__main__":
-    jd = load_job_description('./job_description.txt')
-    pf = load_json('./aarav.json')
+    payload_path = './debug.json'
+    with open(payload_path, 'r') as rf:
+        payload = json.load(rf)
 
-    print(optimize_profile(job_description=jd, profile_json=pf))
+    master_profile = MasterProfile.model_validate_json(
+        json.dumps(payload['master_profile']))
+    job_description = payload['job_description']
+    selected_tags = payload['selected_tags']
+    llm_model = payload['llm_model']
+    opti = OptimizeResume(llm_model=llm_model, master_profile=master_profile,
+                          job_description=job_description, selected_tags=selected_tags)
+    tuned_profile = opti.tune_resume()
+
+    pprint(json.loads(tuned_profile.model_dump_json()))
