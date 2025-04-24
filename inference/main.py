@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from optimize import OptimizeResume
 from tag_sections import predict_on_master_profile
 from generate_all_tags import TagGenerator
+from transformers import pipeline
 
 app = FastAPI()
 
@@ -40,8 +41,12 @@ def tag_profile(data:UserProfile):
     print("Tag Profile Called")
     master_profile = data.master_profile
     all_tags = data.all_tags
-    tagged_profile = predict_on_master_profile(master_profile,all_tags)
-
+    classifier = pipeline(model="facebook/bart-large-mnli", device='cuda:0')
+    tagged_profile = predict_on_master_profile(master_profile,all_tags,classifier=classifier)
+    del classifier
+    with open('./last_tagged.json','w') as jf:
+        json.dump(tagged_profile,jf)
+        
     return tagged_profile
 
 @app.post('/optimize_profile')

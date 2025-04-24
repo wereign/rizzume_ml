@@ -2,186 +2,37 @@ import json
 from pprint import pprint
 import requests
 
-payload = {
-    "master_profile": {
-        "personal_info": {
-            "first_name": "Emily",
-            "middle_name": "Grace",
-            "last_name": "Johnson",
-            "title": "Product Designer",
-            "city": "New York",
-            "country": "USA",
-            "pin_code": "07008",
-            "summary": "Passionate product designer with experience in UI/UX design, prototyping, and user research.",
-            "email": "emily.johnson@example.com",
-            "contact_number": "+1 987 654 3210",
-            "websites": [
-                {
-                    "platform": "portfolio",
-                    "link": "https://emilyjohnson.com"
-                },
-                {
-                    "platform": "linkedIn",
-                    "link": "https://www.linkedin.com/in/emily-johnson"
-                },
-                {
-                    "platform": "github",
-                    "link": "https://github.com/emilyjohnson"
-                }
-            ]
-        },
-        "education": [
-            {
-                "title": "Bachelor of Fine Arts in Graphic Design",
-                "institute": "Parsons School of Design",
-                "start_date": "2019-09-01",
-                "graduation_date": "2023-06-01",
-                "score": "3.7"
-            },
-            {
-                "title": "UI/UX Design Bootcamp",
-                "institute": "General Assembly",
-                "start_date": "2022-01-01",
-                "graduation_date": "2022-04-01",
-                "score": ""
-            }
-        ],
-        "skills": [
-            {
-                "name": "UI/UX Design",
-                "tags": []
-            },
-            {
-                "name": "Graphic Design",
-                "tags": []
-            },
-            {
-                "name": "Wireframing",
-                "tags": []
-            },
-            {
-                "name": "User Testing",
-                "tags": []
-            }
-        ],
-        "projects": [
-            {
-                "title": "Mobile App Redesign for E-commerce",
-                "organization": "Freelance",
-                "start_date": "2023-02-01",
-                "end_date": "2023-04-01",
-                "link": "https://emilyjohnson.com/mobile-app-redesign",
-                "description": "Redesigned an e-commerce mobile app for improved user experience and aesthetics.",
-                "tags": [
-                    "UI/UX design",
-                    "mobile app",
-                    "e-commerce"
-                ]
-            },
-            {
-                "title": "Website Redesign for Local Bakery",
-                "organization": "Self",
-                "start_date": "2023-05-01",
-                "end_date": "2023-07-01",
-                "link": "https://emilyjohnson.com/bakery-website",
-                "description": "Created a responsive and visually appealing website for a local bakery.",
-                "tags": [
-                    "web design",
-                    "UI/UX",
-                    "branding"
-                ]
-            }
-        ],
-        "experience": [
-            {
-                "role": "UI/UX Designer Intern",
-                "company": "Design Studio",
-                "location": "New York, USA",
-                "start_date": "2022-06-01",
-                "end_date": "2022-08-01",
-                "mode": "Onsite",
-                "description": "Worked on prototyping, user research, and UI design for multiple digital products.",
-                "tags": [
-                    "UI/UX design",
-                    "user research",
-                    "prototyping"
-                ]
-            },
-            {
-                "role": "Freelance Graphic Designer",
-                "company": "Self",
-                "location": "Remote",
-                "start_date": "2022-09-01",
-                "end_date": "2023-01-01",
-                "mode": "Remote",
-                "description": "Designed logos, websites, and marketing materials for clients across industries.",
-                "tags": [
-                    "graphic design",
-                    "branding",
-                    "logos"
-                ]
-            }
-        ],
-        "certifications": [
-            {
-                "title": "UI/UX Design Certification",
-                "organization": "General Assembly",
-                "link": "https://generalassembly.com/certificate/ux-design",
-                "date": "2022-04-01",
-                "tags": [
-                    "design",
-                    "prototyping"
-                ]
-            }
-        ],
-        "publications": [
-            {
-                "title": "Designing the Future: UI/UX in 2025",
-                "publisher": "Design Trends Journal",
-                "link": "https://designtrendsjournal.com/designing-the-future",
-                "date": "2023-06-01",
-                "tags": [
-                    "UI/UX design",
-                    "future trends",
-                    "product design"
-                ]
-            },
-            {
-                "title": "Prototyping for User-Centered Design",
-                "publisher": "UX Design Weekly",
-                "link": "https://uxdesignweekly.com/prototyping-for-user-centered-design",
-                "date": "2022-11-01",
-                "tags": [
-                    "prototyping",
-                    "UI/UX design",
-                    "user-centered design"
-                ]
-            }
-        ],
-        "achievements": [
-            {
-                "award_title": "Best Product Design",
-                "description": "Won the award for best product design in a national competition in 2023.",
-                "date": "2023-06-01",
-                "tags": [
-                    "design",
-                    "product design",
-                    "award"
-                ]
-            }
-        ]
-    },
-    "llm_model": "smollm2",
-    "job_description": "Requirements:\nStrong background in UI/UX design, graphic design, and user research.\nProficiency in design tools like Figma, Sketch, Photoshop, Illustrator, and InVision.\nExperience in wireframing, prototyping, and user testing.\nAbility to conduct user research and translate insights into intuitive design solutions.\nStrong portfolio showcasing mobile and web design projects.\nExperience in branding and digital product aesthetics is a plus.\n\nResponsibilities:\n\nDesign and prototype user-friendly interfaces for web and mobile applications.\nConduct user research, usability testing, and gather feedback to improve designs.\nDevelop wireframes, user flows, and high-fidelity UI mockups.\nCollaborate with developers, product managers, and stakeholders to refine design solutions.\nEnsure consistency in branding and user experience across digital products.\nStay updated on the latest UI/UX trends and best practices.\n",
-    "selected_tags": [
-        "Figma",
-        "InVision",
-        "future trends",
-        "product design",
-        "user-centered design"
-    ]
-}
+with open('./data.json') as jf:
+    master_profile = json.load(jf)
 
+payload = {
+    "master_profile": master_profile[0]['master_profile'],
+    "llm_model":'gemma3:4b',
+    "job_description":"""
+        Job title: Data Scientist
+
+        Job description:
+        Collaborate with cross-functional teams on project delivery.
+        Develop machine learning models using Python & TensorFlow.
+        Optimize data pipelines for efficiency & accuracy.
+        Strong understanding of machine learning and deep learning principles and algorithms.
+        Experience in developing and implementing generative Al models and algorithms.
+        Proficiency in programming languages such as Python, TensorFlow, and PyTorch.
+        Ability to work with large datasets and knowledge of data preprocessing techniques.
+        Familiarity with natural language processing (NLP) and computer vision for generative Al applications.
+        Experience in building and deploying generative Al systems in real-world applications.
+        Utilize advanced machine learning techniques to develop and train generative Al models.
+        Decode the Requirements to functional modules and product features
+        Pipeline building integration and testing following the SDLC process    
+        """,
+    "selected_tags":["Deep Learning",
+                     "ML Models",
+                    "AI",
+                    "Tableau",
+                    "Data Science",
+                    "Machine Learning", 
+                    "Data Analysis"]
+}
 # API Call with Error Handling
 try:
     response = requests.post(
@@ -193,12 +44,12 @@ try:
         try:
             optimized_resume = response.json()
             print("Response:")
-            print(optimized_resume.keys())
             print(type(optimized_resume))
             pprint(optimized_resume)
         except json.JSONDecodeError:
             print("Error: Failed to decode JSON response.")
     else:
+        print(response.json())
         print(f"API Request failed with status code: {response.status_code}")
 
 except requests.Timeout:

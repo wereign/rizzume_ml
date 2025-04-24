@@ -1,0 +1,206 @@
+[
+    {
+      "master_profile": {
+        "personal_info": {
+          "first_name": "Aryan",
+          "middle_name": "Raj",
+          "last_name": "Verma",
+          "title": "Software Engineer",
+          "city": "Bangalore",
+          "country": "India",
+          "pin_code": "560001",
+          "summary": "Full-stack software engineer with a strong background in machine learning, data science, and scalable web development. Experienced in designing intelligent systems, building real-world applications, and delivering high-performance solutions. Adept in Python, JavaScript, and modern frameworks, with a passion for learning and collaboration.",
+          "email": "aryan.verma@example.com",
+          "contact_number": "+91 987654XXXX",
+          "websites": [
+            {
+              "platform": "LinkedIn",
+              "link": "https://www.linkedin.com/in/aryanverma"
+            },
+            {
+              "platform": "GitHub",
+              "link": "https://github.com/aryanverma"
+            }
+          ]
+        },
+        "education": [
+          {
+            "title": "B.Tech in Computer Science and Engineering",
+            "institute": "Delhi University, India",
+            "start_date": "2018-08-01T00:00:00.000+00:00",
+            "graduation_date": "2022-06-01T00:00:00.000+00:00",
+            "score": "8.75/10"
+          },
+          {
+            "title": "Higher Secondary Certificate (HSC)",
+            "institute": "Mahatma Gandhi University",
+            "start_date": "2016-06-01T00:00:00.000+00:00",
+            "graduation_date": "2018-03-01T00:00:00.000+00:00",
+            "score": "84%"
+          }
+        ],
+        "skills": [
+            {"name": "Python"},
+            {"name": "JavaScript"},
+            {"name": "Java"},
+            {"name": "C++"},
+            {"name": "SQL"},
+            {"name": "Django"},
+            {"name": "React"},
+            {"name": "Node.js"},
+            {"name": "Angular"},
+            {"name": "Express"},
+            {"name": "scikit-learn"},
+            {"name": "Data Analysis"},
+            {"name": "Pandas"},
+            {"name": "NumPy"},
+            {"name": "MongoDB"},
+            {"name": "REST API"},
+            {"name": "HTML"},
+            {"name": "CSS"},
+            {"name": "Bootstrap"},
+            {"name": "Docker"}
+        ],
+        "projects": [
+          {
+            "title": "Social Media Scheduler",
+            "organization": "Personal Project",
+            "start_date": "2021-05-01T00:00:00.000+00:00",
+            "end_date": "2021-12-01T00:00:00.000+00:00",
+            "link": "https://github.com/aryanverma/social-media-scheduler",
+            "description": "- Built responsive app using Django and Node that allowed users to schedule social media posts across Instagram and Twitter\n- Built features using scikit-learn in Python that learned the time of day of maximum engagement with social media posts, which increased overall engagement rate by 23% for users\n- Released it for free for University of Illinois Chicago students, and it quickly grew to over 500 monthly active users\n- Featured across 7 local newspapers, radio stations, and news networks with focus around use of Twitter and Instagram APIs",
+            "tags": ["Django", "Node.js", "Social Media", "APIs", "scikit-learn", "Python", "Engagement Optimization"]
+          },
+          {
+            "title": "TravelBuddy",
+            "organization": "Aeronix Inc.",
+            "start_date": "2020-08-01T00:00:00.000+00:00",
+            "end_date": "2021-03-01T00:00:00.000+00:00",
+            "link": "https://github.com/aryanverma/travelbuddy",
+            "description": "- Pioneered the development of the TravelBuddy app that helped users plan itineraries and save travel information.\n- Implemented responsive web design using Python that improved app performance and increased mobile users by 38% and tablet users by 21%.\n- Streamlined the app's front-end codebase, reducing page load times by 39% and increasing app speed by 26%.\n- Increased the app's daily active users by leading the design and implementation of the itinerary planner feature.\n- Introduced a new feature to sync travel information across devices, improving user retention by 18%",
+            "tags": ["Travel", "Responsive Design", "UX", "Python", "Web App", "Performance Optimization"]
+          },
+          {
+            "title": "Forecast Forum",
+            "organization": "Avenica",
+            "start_date": "2022-01-01T00:00:00.000+00:00",
+            "end_date": "2022-07-01T00:00:00.000+00:00",
+            "link": "https://zillow.com/forecast-forum",
+            "description": "- Explored the capabilities of Scikit-learn for neural networks and understood their potential for forecasting problems in various industries\n- Employed decision tree algorithms to identify significant predictors of customer purchasing behavior, informing marketing strategies\n- Applied linear regression analysis in Python to predict sales trends for a retail company, achieving a correlation coefficient of 0.86 with actual sales data\n- Presented seminar findings to colleagues, highlighting the applicability of predictive modeling techniques across diverse industries and business scenarios",
+            "tags": ["Scikit-learn", "Neural Networks", "Regression", "Forecasting", "Data Science", "Customer Behavior"]
+          },
+          {
+            "title": "SentinelAI: Smart Intrusion Detection for Network Security",
+            "organization": "Personal Project",
+            "start_date": "2022-08-01T00:00:00.000+00:00",
+            "end_date": "2022-12-01T00:00:00.000+00:00",
+            "link": "https://github.com/aryanverma/sentinelAI",
+            "description": "- Developed an AI-powered Intrusion Detection System (IDS) to detect and mitigate network security threats in real-time\n- Utilized machine learning algorithms (e.g., Random Forest, SVM) for anomaly detection and threat classification (e.g., DoS, SQL Injection)\n- Implemented a real-time monitoring system with reduced false positives and automatic threat alerts\n- Integrated the IDS with existing network infrastructure, providing a dashboard for visualizing threats and performance metrics.",
+            "tags": ["Cybersecurity", "Intrusion Detection", "SVM", "Random Forest", "ML", "Real-time Systems"]
+          }
+        ],
+        "experience": [
+          {
+            "role": "Data Scientist Intern",
+            "company": "Grubhub",
+            "location": "Pune, India",
+            "start_date": "2021-06-01T00:00:00.000+00:00",
+            "end_date": "2021-12-01T00:00:00.000+00:00",
+            "mode": "Remote",
+            "description": "- Designed and implemented over 40 machine-learning models for different programs and projects\n- Verified results of algorithms to predict future occurrences using real-world programs data with 82% precision\n- Extracted raw data from Twitter APIs and analyzed tweets to generate analysis showing trends in public opinion regarding policy changes\n- Developed a Java application that performed pattern analysis of criminal incidents to help identify and visualize hotspots (vulnerable areas) in the city",
+            "tags": ["Data Science", "Twitter API", "Java", "Machine Learning", "Data Analysis"]
+          },
+          {
+            "role": "Full Stack Engineer Intern",
+            "company": "FreshDirect",
+            "location": "Delhi, India",
+            "start_date": "2020-05-01T00:00:00.000+00:00",
+            "end_date": "2020-08-01T00:00:00.000+00:00",
+            "mode": "Onsite",
+            "description": "- Constructed Angular components for customer-facing web app, improving users' page time by 3 minutes\n- Worked within agile team to prioritize and scope feature requests, placing biggest impacts at top\n- Built extensive test coverage for new features, which reduced customer complaints by 23%\n- Created database schemas, saving company more than $7K in implementation costs",
+            "tags": ["Angular", "Agile", "Database", "Web Development", "Testing"]
+          },
+          {
+            "role": "Entry-Level Data Analyst",
+            "company": "Avenica",
+            "location": "Pune, India",
+            "start_date": "2023-01-01T00:00:00.000+00:00",
+            "end_date": "2023-09-01T00:00:00.000+00:00",
+            "mode": "Hybrid",
+            "description": "- Collaborated with product managers to perform cohort analysis that identified an opportunity to reduce pricing by 21% for a segment of users to boost yearly revenue by $560,000\n- Constructed operational reporting in Tableau to improve scheduling contractors, saving $90,000 in the annual budget\n- Implemented a long-term pricing experiment that improved customer lifetime value by 23%\n- Ran, submitted, and reported on monthly client enrollments, services opted in for, and the employees assigned to clients",
+            "tags": ["Tableau", "Pricing Strategy", "Reporting", "Cohort Analysis", "Client Management"]
+          },
+          {
+            "role": "Machine Learning Scientist",
+            "company": "Avenica",
+            "location": "Pune, India",
+            "start_date": "2023-10-01T00:00:00.000+00:00",
+            "end_date": "2024-03-01T00:00:00.000+00:00",
+            "mode": "Onsite",
+            "description": "- Designed 17+ Deep Learning and Computer Vision algorithms to detect objects of interest, issues, and defects\n- Developed and implemented 8 Machine Learning models and techniques to solve 11 business problems, saving $56,000+\n- Evaluated the accuracy and quality of 210+ data sources and designed models\n- Maintained and improved skill proficiency levels within the modeling, technology, and industry best practices",
+            "tags": ["Deep Learning", "Computer Vision", "ML", "AI", "Object Detection"]
+          },
+          {
+            "role": "Front-End Developer",
+            "company": "Aeronix Inc.",
+            "location": "Bangalore, India",
+            "start_date": "2022-01-01T00:00:00.000+00:00",
+            "end_date": "2022-12-01T00:00:00.000+00:00",
+            "mode": "Hybrid",
+            "description": "- Pioneered the development of the TravelBuddy app that helped users plan itineraries and save travel information.\n- Implemented responsive web design using Python that improved app performance and increased mobile users by 38% and tablet users by 21%.\n- Streamlined the app's front-end codebase, reducing page load times by 39% and increasing app speed by 26%.\n- Increased the app's daily active users by leading the design and implementation of the itinerary planner feature.\n- Introduced a new feature to sync travel information across devices, improving user retention by 18%",
+            "tags": ["Front-End", "Performance", "Responsive Design", "UX", "Python"]
+          }
+        ],
+        "certifications": [
+          {
+            "title": "Open Certified Data Scientist (Open CDS)",
+            "organization": "Google",
+            "link": "https://cloud.google.com/certification",
+            "date": "2021-02-01T00:00:00.000+00:00",
+            "tags": ["Data Science", "Certification", "Google"]
+          },
+          {
+            "title": "Fullstack Web Development Bootcamp",
+            "organization": "Fullstack Academy",
+            "link": "https://www.fullstackacademy.com/",
+            "date": "2020-12-01T00:00:00.000+00:00",
+            "tags": ["Web Development", "Full Stack", "Bootcamp"]
+          },
+          {
+            "title": "Front-End Developer Course",
+            "organization": "Udemy",
+            "link": "https://www.udemy.com/share/104668/",
+            "date": "2021-04-01T00:00:00.000+00:00",
+            "tags": ["Front-End", "Udemy", "Web Development"]
+          },
+          {
+            "title": "Complete Data Science Bootcamp",
+            "organization": "Udemy",
+            "link": "https://www.udemy.com/share/101W9c/",
+            "date": "2021-06-01T00:00:00.000+00:00",
+            "tags": ["Data Science", "Bootcamp", "Python"]
+          }
+        ],
+        "publications": [
+          {
+            "title": "Predictive Analytics in Data Science: Enhancing Decision-Making through Machine Learning",
+            "publisher": "Journal of Data Science",
+            "link": "https://jds-online.org/journal/JDS",
+            "date": "2022-11-01T00:00:00.000+00:00",
+            "tags": ["Publication", "Predictive Analytics", "ML", "Research"]
+          }
+        ],
+        "achievements": [
+          {
+            "award_title": "Digital Trailblazer Award",
+            "description": "Celebrated for pioneering innovative solutions in computer science, demonstrating exceptional creativity and technical expertise in developing cutting-edge projects",
+            "date": "2023-04-01T00:00:00.000+00:00",
+            "tags": ["Award", "Innovation", "Leadership"]
+          }
+        ]
+      },
+      "all_tags": [
+        "Python", "JavaScript", "Java", "C++", "SQL", "Django", "React", "Node.js", "Angular", "Express", "scikit-learn", "Pandas", "NumPy", "SVM", "Random Forest", "Data Analysis", "Regression", "Classification", "Git", "Docker", "PostgreSQL", "MongoDB", "Firebase", "REST API", "Agile", "HTML", "CSS", "Bootstrap", "Responsive Design", "Web Performance", "Social Media", "APIs", "Engagement Optimization", "Travel", "UX", "Web App", "Performance Optimization", "Neural Networks", "Forecasting", "Customer Behavior", "Cybersecurity", "Intrusion Detection", "Real-time Systems", "Twitter API", "Java", "Testing", "Tableau", "Pricing Strategy", "Reporting", "Cohort Analysis", "Client Management", "Deep Learning", "Computer Vision", "ML Models", "AI", "Object Detection", "Front-End", "Certification", "Google", "Bootcamp", "Publication", "Predictive Analytics", "Research", "Award", "Innovation", "Leadership"
+      ]
+    }
+  ]

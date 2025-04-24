@@ -9,9 +9,11 @@ from pydantic import BaseModel
 
 ALL_MODELS = ['llama3.2', 'smollm2', 'gemma3:4b', 'gemma3:1b', 'command-r7b']
 
+from pydantic import BaseModel
 class ModelOutput(BaseModel):
     description : str
     relevance : int
+print(ModelOutput.model_json_schema())
 
 class OptimizeResume():
     def __init__(self, llm_model, master_profile: MasterProfile, job_description: str, selected_tags: list, prompts_path: str = './prompts.yaml'):
@@ -35,10 +37,11 @@ class OptimizeResume():
         def has_matching_tag(tags: List[str]) -> bool:
             return any(tag in selected_tags for tag in tags)
 
-        filtered_profile = deepcopy(self.master_profile)
-        master_profile = self.master_profile
+        filtered_profile:MasterProfile = deepcopy(self.master_profile)
+        master_profile:MasterProfile = self.master_profile
         selected_tags = self.selected_tags
         
+        filtered_profile.skills = master_profile.skills
         filtered_profile.projects = [
             proj for proj in master_profile.projects if has_matching_tag(proj.tags)]
         filtered_profile.experience = [
@@ -66,7 +69,7 @@ class OptimizeResume():
         return filtered_profile
 
     def optimize_item(self, section_prompt, section_description):
-        print("Optimizing item")
+        print(f"Optimizing Item ")
         item_message = section_prompt['user_prompt'].format(jd=self.job_description,item=section_description)
         messages = [
             {
@@ -77,7 +80,9 @@ class OptimizeResume():
             }
         ]
 
+        print(f"Sent item to {self.model_name}")
         response = self.client.chat(model=self.model_name,messages=messages,format=ModelOutput.model_json_schema())
+        print(f"Response from {self.model_name}")
         return json.loads(response.message.content)
 
     def tune_resume(self,as_json=True):

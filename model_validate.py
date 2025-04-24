@@ -1,6 +1,7 @@
 from typing import List, Literal, Optional, Union
 from pydantic import BaseModel, EmailStr, HttpUrl
 from datetime import datetime
+import json
 
 class WebsiteLink(BaseModel):
     platform: str
@@ -84,4 +85,7 @@ class UserProfile(BaseModel):
 
 
 if __name__ == "__main__":
-    print(MasterProfile.model_json_schema())
+    with open('./data.json') as dj:
+        master_profile = json.load(dj)[0]['master_profile']
+    
+    MasterProfile.model_validate(master_profile)

@@ -1,9 +1,7 @@
-from transformers import pipeline
 import json
 from profile_model import MasterProfile, Experience, Certification, Achievement, Publication
 
-PREDICTION_THRESHOLD = 0.45
-classifier = pipeline(model="facebook/bart-large-mnli", device='cuda:0')
+PREDICTION_THRESHOLD = 0.45 
 
 def template_projects(item):
 
@@ -18,14 +16,12 @@ def template_projects(item):
 
 def template_experiences(item:Experience):
 
-
     formatted = f"""
         "Role: {item['role']}
         Company: {item['company']}
         Onsite / Remote : {item['mode']}
         Description: {item['description']}
         """
-
     return formatted
 
 
@@ -54,7 +50,7 @@ def template_publications(item:Publication):
     return formatted
 
 
-def predict_item(item, user_tags, classifier=classifier, log=False, top_n=2, selection='threshold'):
+def predict_item(item, user_tags, classifier, log=False, top_n=5, selection='top_n'):
     """
     Returning a list of suggested tags from the tags the user has created. 
     Threshold filtering to select the tags right now.
@@ -80,6 +76,10 @@ def predict_item(item, user_tags, classifier=classifier, log=False, top_n=2, sel
 
         if selection == 'top_n':
             preds = sorted(preds, key=lambda x: x[1], reverse=True)[:top_n]
+            preds = [pred[0] for pred in preds]
+            
+            print("Top N Preds with conf")
+            print(preds)
 
         elif selection == "threshold":
             preds = [x[0]
@@ -91,7 +91,7 @@ def predict_item(item, user_tags, classifier=classifier, log=False, top_n=2, sel
         return None
 
 
-def predict_on_master_profile(master_profile:MasterProfile,all_tags):
+def predict_on_master_profile(master_profile:MasterProfile,all_tags,classifier):
     master_profile = json.loads(master_profile.model_dump_json())
     processing_templates = {"projects": template_projects, "experience": template_experiences,
                             "certifications": template_certifications, "achievements": template_achievements,
@@ -100,18 +100,14 @@ def predict_on_master_profile(master_profile:MasterProfile,all_tags):
     for section in processing_templates:
         for i in range(len(master_profile[section])):
             formatted_item = processing_templates[section](master_profile[section][i])
-            tags = predict_item(formatted_item,all_tags)
+            tags = predict_item(formatted_item,all_tags,classifier=classifier)
             master_profile[section][i]['tags'] = tags
             print('-------------------')     
             print("Input Item")
             print(formatted_item)
             print()
-            print(tags)
 
-            print("DEBUG")
-            print(master_profile[section][i])
-            print(master_profile[section][i]['tags'])
-            master_profile[section][i]['tags'].extend(tags)
+            master_profile[section][i]['tags'] = tags
     
     return master_profile
     
