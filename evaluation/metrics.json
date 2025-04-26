@@ -1,6 +1,6 @@
 {
     "Factual Accuracy": {
-        "description": "Assesses the truthfulness and reliability of the improved resume content. It ensures that all claims are grounded in the original input, accurately reflecting the candidate’s real skills, experiences, and achievements. The input content is considered the sole source of truth.",
+        "description": "Assesses the truthfulness and reliability of the improved resume content. It ensures that all claims are grounded in the original input, accurately reflecting the candidate's real skills, experiences, and achievements. The input content is considered the sole source of truth.",
         "options": {
             "Factual": "The resume is accurate and credible, with truthful, well-supported claims that align with the candidate's actual skills and experiences.",
             "Deceptive": "The resume contains inaccuracies, exaggerations, or vague claims that lack clarity or verifiable evidence, potentially misleading employers."
@@ -23,7 +23,7 @@
         }
     },
     "Grammar": {
-        "description": "Assesses the correctness and professionalism of the resume's grammar, spelling, and formatting. Strong writing mechanics enhance clarity, readability, and the candidate’s credibility.",
+        "description": "Assesses the correctness and professionalism of the resume's grammar, spelling, and formatting. Strong writing mechanics enhance clarity, readability, and the candidate's credibility.",
         "options": {
             "Needs Improvement": "The resume contains noticeable grammar, spelling, or formatting errors that impact readability and professionalism.",
             "Acceptable": "The resume has minor grammatical or spelling issues, but they don't significantly affect readability or overall presentation.",

@@ -82,7 +82,7 @@ class GeminiBackend(EvaluationBackend):
 
 
 class ResumeEvaluator:
-    def __init__(self, backend: Literal["ollama", "gemini"], **kwargs):
+    def __init__(self, backend: Literal["ollama", "gemini"],**kwargs):
         if backend == "ollama":
             self.backend: EvaluationBackend = OllamaBackend(
                 model=kwargs.get("model", "gemma3:1b"),
@@ -98,4 +98,6 @@ class ResumeEvaluator:
     def evaluate(
         self, system_prompt: str, user_prompt: str, json_schema: Dict[str, Any]
     ) -> Dict[str, Any]:
+        print(system_prompt)
+        print(user_prompt)
         return self.backend.evaluate(system_prompt, user_prompt, json_schema)

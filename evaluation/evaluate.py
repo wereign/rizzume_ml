@@ -101,10 +101,10 @@ class PromptBuilder:
 
 
 class ResumeEvaluationEngine:
-    def __init__(self, metrics_path: str, prompt_path: str,eval_backend: str = "ollama"):
+    def __init__(self, metrics_path: str, prompt_path: str,eval_backend: str = "ollama",model=None):
         self.metric_processor = MetricProcessor(metrics_path)
         self.prompt_builder = PromptBuilder(prompt_path)
-        self.evaluator = ResumeEvaluator(backend=eval_backend)
+        self.evaluator = ResumeEvaluator(backend=eval_backend,model=model)
 
     def evaluate(
         self, input_experience: str, job_description: str, output_experience: str
