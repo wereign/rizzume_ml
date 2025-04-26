@@ -1,38 +1,62 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="26.0.4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.9">
   <diagram name="Page-1" id="Rc3s0BRqiITv8N8nPfR5">
-    <mxGraphModel dx="698" dy="376" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="486" dy="252" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-1" value="&lt;h1&gt;End Points&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-1" value="&lt;h1&gt;End Points&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="306" y="40" width="216" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fd7VVPAdmDBcDg8gATgO-2" target="fd7VVPAdmDBcDg8gATgO-5">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="fd7VVPAdmDBcDg8gATgO-2" target="fd7VVPAdmDBcDg8gATgO-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fd7VVPAdmDBcDg8gATgO-2" target="fd7VVPAdmDBcDg8gATgO-3">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="fd7VVPAdmDBcDg8gATgO-2" target="fd7VVPAdmDBcDg8gATgO-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-2" value="ML Inference API" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" target="SC9cyZY3klM1m1NmlQsm-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="248" y="200" as="sourcePoint" />
+            <mxPoint x="341" y="440" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="298" y="200" />
+              <mxPoint x="298" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fd7VVPAdmDBcDg8gATgO-2" target="SC9cyZY3klM1m1NmlQsm-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="297" y="200" />
+              <mxPoint x="297" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-2" value="ML Inference API" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="160" width="160" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fd7VVPAdmDBcDg8gATgO-3" target="fd7VVPAdmDBcDg8gATgO-4">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="fd7VVPAdmDBcDg8gATgO-3" target="fd7VVPAdmDBcDg8gATgO-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-3" value="POST&lt;div&gt;/ml/assign_tags&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;BODY&lt;/div&gt;&lt;div&gt;{&quot;user_id&quot;:42,&quot;tags&quot;:{...},&quot;proprofile&quot;:{....}}&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-3" value="POST&lt;div&gt;/tag_profile&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;BODY&lt;/div&gt;&lt;div&gt;{&quot;user_id&quot;:42,&quot;tags&quot;:{...},&quot;proprofile&quot;:{....}}&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="346" y="80" width="164" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-4" value="RESPONSE&lt;div&gt;{&quot;tagged_proprofile&quot;:{........}}&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-4" value="RESPONSE&lt;div&gt;{&quot;tagged_profile&quot;:{........}}&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="570" y="100" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fd7VVPAdmDBcDg8gATgO-5" target="fd7VVPAdmDBcDg8gATgO-11">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="fd7VVPAdmDBcDg8gATgO-5" target="fd7VVPAdmDBcDg8gATgO-11" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-5" value="POST&lt;div&gt;/ml/optimize_resume/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;BODY&lt;/div&gt;&lt;div&gt;{&quot;user_id&quot;:42,&lt;/div&gt;&lt;div&gt;&quot;proprofile&quot;: {...},&lt;/div&gt;&lt;div&gt;&quot;job_description&quot;:{....},&lt;/div&gt;&lt;div&gt;&quot;selected_tags&quot;;{......}}&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="350" y="220" width="179" height="120" as="geometry" />
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-5" value="POST&lt;div&gt;/optimize_profile/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;BODY&lt;/div&gt;&lt;div&gt;{&quot;user_id&quot;:42,&lt;/div&gt;&lt;div&gt;&quot;proprofile&quot;: {...},&lt;/div&gt;&lt;div&gt;&quot;job_description&quot;:{....},&lt;/div&gt;&lt;div&gt;&quot;selected_tags&quot;;{......}}&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="346" y="220" width="179" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="fd7VVPAdmDBcDg8gATgO-11" value="RESPONSE&lt;div&gt;{&quot;optimized_proprofile&quot;:{........}}&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="fd7VVPAdmDBcDg8gATgO-11" value="RESPONSE&lt;div&gt;{&quot;optimized_profile&quot;:{........}}&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="570" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-1" value="POST&lt;div&gt;/tag_section&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;NOT IMPLEMENTED.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Input : One of Sections, All Tags&lt;/div&gt;&lt;div&gt;Output : Tags for that section&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="343" y="380" width="179" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-3" value="POST&lt;div&gt;/suggest_new_tags&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;NOT IMPLEMENTED.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Input : Full Profile.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="343" y="540" width="179" height="120" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
