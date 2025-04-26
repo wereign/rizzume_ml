@@ -1,1 +1,47 @@
-{"type": "object", "properties": {"Factual Accuracy": {"type": "string", "enum": ["Factual", "Deceptive"], "description": "One of: Factual, Deceptive"}, "Alignment": {"type": "string", "enum": ["Misaligned", "Neutral", "Well Aligned"], "description": "One of: Misaligned, Neutral, Well Aligned"}, "Section Length": {"type": "string", "enum": ["Too Short", "Optimal", "Too Long"], "description": "One of: Too Short, Optimal, Too Long"}, "Grammar": {"type": "string", "enum": ["Needs Improvement", "Acceptable", "Polished"], "description": "One of: Needs Improvement, Acceptable, Polished"}}, "required": ["Factual Accuracy", "Alignment", "Section Length", "Grammar"], "additionalProperties": false}
+{
+    "type": "object",
+    "properties": {
+        "Factual Accuracy": {
+            "type": "string",
+            "enum": [
+                "Factual",
+                "Deceptive"
+            ],
+            "description": "One of: Factual, Deceptive"
+        },
+        "Alignment": {
+            "type": "string",
+            "enum": [
+                "Misaligned",
+                "Neutral",
+                "Well Aligned"
+            ],
+            "description": "One of: Misaligned, Neutral, Well Aligned"
+        },
+        "Section Length": {
+            "type": "string",
+            "enum": [
+                "Too Short",
+                "Optimal",
+                "Too Long"
+            ],
+            "description": "One of: Too Short, Optimal, Too Long"
+        },
+        "Grammar": {
+            "type": "string",
+            "enum": [
+                "Needs Improvement",
+                "Acceptable",
+                "Polished"
+            ],
+            "description": "One of: Needs Improvement, Acceptable, Polished"
+        }
+    },
+    "required": [
+        "Factual Accuracy",
+        "Alignment",
+        "Section Length",
+        "Grammar"
+    ],
+    "additionalProperties": false
+}

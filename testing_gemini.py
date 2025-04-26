@@ -85,6 +85,3 @@ print(response.text)
 
 # Use the response as a JSON string.
 print(response.text)
-
-# Use instantiated objects.
-my_recipes: GeminiResponse = response.parsed

@@ -10,12 +10,12 @@ user_prompt: |
   Use the following inputs:
 
   Original Section (reference for truthfulness and factuality):
-  {{ original_section }}
+  {{ input_experience }}
 
   Job Description (reference for alignment):
   {{ job_description }}
 
   Improved Section (the content to evaluate):
-  {{ improved_section }}
+  {{ output_experience }}
 
   For each of the four metrics, assign a score from the available options and briefly justify your choice. Use the definitions provided in the system prompt as your guide.
