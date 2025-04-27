@@ -1,6 +1,6 @@
 from icecream import ic
 from datetime import datetime
-from evaluation.evaluator import ResumeEvaluationEngine
+from evaluation.evaluator_base import ResumeEvaluationEngine
 import pandas as pd
 
 OUTPUT_DIR = "./eval_test"

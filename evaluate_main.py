@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from evaluation.evaluator import ResumeEvaluationEngine
+from evaluation.evaluator_base import ResumeEvaluationEngine
 from evaluation.evaluator_tester import EvaluatorTester
 from icecream import ic
 load_dotenv()
