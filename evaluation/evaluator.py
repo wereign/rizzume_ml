@@ -33,7 +33,7 @@ class MetricProcessor:
         json_schema = {
             "type": "object",
             "properties": {},
-            "required": list(self.metrics.keys()) + ["Justifications"],
+            "required": list(self.metrics.keys()) + ["justification"],
             # "additionalProperties": False,
         }
 
@@ -46,7 +46,7 @@ class MetricProcessor:
                 "description": f"One of: {', '.join(options.keys())}",
             }
 
-        json_schema["properties"]["Justifications"] = {
+        json_schema["properties"]["justification"] = {
             "type": "object",
             "properties": {
                 metric: {
@@ -59,6 +59,7 @@ class MetricProcessor:
             # "additionalProperties": False,
         }
 
+        print(json_schema)
         return json_schema
 
 
@@ -101,10 +102,13 @@ class PromptBuilder:
 
 
 class ResumeEvaluationEngine:
-    def __init__(self, metrics_path: str, prompt_path: str,eval_backend: str = "ollama",model=None):
+    # TODO: Extend ResumeEvaluationEngine to work with a CSV input for predictions, and a method to compare with ground truths.
+    def __init__(self, metrics_path: str='./evaluation/metrics.json', prompt_path: str='./evaluation/prompts.yaml',eval_backend: str = "ollama",model=None):
+        self.eval_backend = eval_backend
+        self.model = model
         self.metric_processor = MetricProcessor(metrics_path)
         self.prompt_builder = PromptBuilder(prompt_path)
-        self.evaluator = ResumeEvaluator(backend=eval_backend,model=model)
+        self.evaluator = ResumeEvaluator(backend=self.eval_backend,model=self.model)
 
     def evaluate(
         self, input_experience: str, job_description: str, output_experience: str
@@ -115,7 +119,6 @@ class ResumeEvaluationEngine:
         )
         json_schema = self.metric_processor.construct_json_schema()
         return self.evaluator.evaluate(system_prompt, user_prompt, json_schema)
-
 
 if __name__ == "__main__":
     input_exp = "Software Engineer with 5 years of experience in Python and Java."

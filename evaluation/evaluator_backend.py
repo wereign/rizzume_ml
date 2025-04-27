@@ -84,13 +84,15 @@ class GeminiBackend(EvaluationBackend):
 class ResumeEvaluator:
     def __init__(self, backend: Literal["ollama", "gemini"],**kwargs):
         if backend == "ollama":
+            self.model = kwargs.get("model", "gemma3:1b")
             self.backend: EvaluationBackend = OllamaBackend(
-                model=kwargs.get("model", "gemma3:1b"),
+                model=self.model,
                 base_url=kwargs.get("base_url", "http://localhost:11434"),
             )
         elif backend == "gemini":
+            self.model = kwargs.get("model", "gemini-2.0-flash")
             self.backend: EvaluationBackend = GeminiBackend(
-                model=kwargs.get("model", "gemini-2.0-flash"),
+                model=self.model,
             )
         else:
             raise ValueError("Unsupported backend. Choose from 'ollama' or 'gemini'.")
@@ -98,6 +100,4 @@ class ResumeEvaluator:
     def evaluate(
         self, system_prompt: str, user_prompt: str, json_schema: Dict[str, Any]
     ) -> Dict[str, Any]:
-        print(system_prompt)
-        print(user_prompt)
         return self.backend.evaluate(system_prompt, user_prompt, json_schema)

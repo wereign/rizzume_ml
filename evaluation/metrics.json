@@ -1,12 +1,12 @@
 {
-    "Factual Accuracy": {
+    "factual_accuracy": {
         "description": "Assesses the truthfulness and reliability of the improved resume content. It ensures that all claims are grounded in the original input, accurately reflecting the candidate's real skills, experiences, and achievements. The input content is considered the sole source of truth.",
         "options": {
             "Factual": "The resume is accurate and credible, with truthful, well-supported claims that align with the candidate's actual skills and experiences.",
             "Deceptive": "The resume contains inaccuracies, exaggerations, or vague claims that lack clarity or verifiable evidence, potentially misleading employers."
         }
     },
-    "Alignment": {
+    "alignment": {
         "description": "Measures how effectively the resume section aligns with the job description. A well-aligned section highlights job-relevant skills and experiences while minimizing or excluding unrelated or less important details.",
         "options": {
             "Misaligned": "The resume section fails to align with the job description. It emphasizes irrelevant or less important content while underrepresenting key job-specific skills and qualifications, leading to a poor fit for the role.",
@@ -14,7 +14,7 @@
             "Well Aligned": "The resume section strongly aligns with the job description, emphasizing key qualifications, skills, and experiences that are most relevant to the role while minimizing less important or unrelated content."
         }
     },
-    "Section Length": {
+    "section_length": {
         "description": "Evaluates whether the resume section is appropriately concise and well-balanced. It should present all essential information without being overly brief or unnecessarily verbose, supporting readability and impact.",
         "options": {
             "Too Short": "The resume section is too concise, omitting important context or details. Key information may be lost, weakening the overall clarity or impact.",
@@ -22,7 +22,7 @@
             "Too Long": "The resume section is overly verbose or cluttered, including unnecessary details that reduce clarity and make it harder to identify the most important points."
         }
     },
-    "Grammar": {
+    "grammar": {
         "description": "Assesses the correctness and professionalism of the resume's grammar, spelling, and formatting. Strong writing mechanics enhance clarity, readability, and the candidate's credibility.",
         "options": {
             "Needs Improvement": "The resume contains noticeable grammar, spelling, or formatting errors that impact readability and professionalism.",
