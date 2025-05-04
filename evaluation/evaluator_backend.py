@@ -56,6 +56,7 @@ class GeminiBackend(EvaluationBackend):
             )
         self.model = model
         self.client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+        print("API_KEY",os.environ.get("GEMINI_API_KEY"))
         if not self.client:
             raise ValueError("Gemini client initialization failed. Check your API key.")
 
@@ -63,34 +64,89 @@ class GeminiBackend(EvaluationBackend):
         self, system_prompt: str, user_prompt: str, json_schema: Dict[str, Any]
     ) -> Dict[str, Any]:
         
-        genai_schema = genai.types.Schema().from_orm(json_schema)
+        metrics_schema = {
+    "type": "object",
+    "properties": {
+        "Factual Accuracy": {
+            "type": "string",
+            "enum": [
+                "Factual",
+                "Deceptive"
+            ],
+            "description": "One of: Factual, Deceptive"
+        },
+        "Alignment": {
+            "type": "string",
+            "enum": [
+                "Misaligned",
+                "Neutral",
+                "Well Aligned"
+            ],
+            "description": "One of: Misaligned, Neutral, Well Aligned"
+        },
+        "Section Length": {
+            "type": "string",
+            "enum": [
+                "Too Short",
+                "Optimal",
+                "Too Long"
+            ],
+            "description": "One of: Too Short, Optimal, Too Long"
+        },
+        "Grammar": {
+            "type": "string",
+            "enum": [
+                "Needs Improvement",
+                "Acceptable",
+                "Polished"
+            ],
+            "description": "One of: Needs Improvement, Acceptable, Polished"
+        }
+    },
+    "required": [
+        "Factual Accuracy",
+        "Alignment",
+        "Section Length",
+        "Grammar"
+    ],
+}
+        genai_schema = genai.types.Schema().from_orm(metrics_schema)
+        
+        print(f"Using Model: {self.model}")
+        print("\n\nSystem Prompt:")
+        print(system_prompt[:100])
+        print("\n\nUser Prompt:")
+        print(user_prompt[:100])
+        print("\n\n")
 
         response = self.client.models.generate_content(
             model=self.model,
-            contents=user_prompt,
+            contents=[user_prompt],
+            
             config=genai.types.GenerateContentConfig(
                 system_instruction=system_prompt,
                 temperature=0.5,
                 response_mime_type="application/json",
                 response_schema= genai_schema
-                    
             )
         )
-        
+        print(response)
         return json.loads(response.text)
-
 
 
 class ResumeEvaluator:
     def __init__(self, backend: Literal["ollama", "gemini"],**kwargs):
         if backend == "ollama":
-            self.model = kwargs.get("model", "gemma3:1b")
+            self.model = kwargs.get('model','smollm2')
             self.backend: EvaluationBackend = OllamaBackend(
                 model=self.model,
                 base_url=kwargs.get("base_url", "http://localhost:11434"),
             )
         elif backend == "gemini":
             self.model = kwargs.get("model", "gemini-2.0-flash")
+            
+            print(f"In ResumeEvaluator: {self.model}")
+
             self.backend: EvaluationBackend = GeminiBackend(
                 model=self.model,
             )
@@ -101,3 +157,5 @@ class ResumeEvaluator:
         self, system_prompt: str, user_prompt: str, json_schema: Dict[str, Any]
     ) -> Dict[str, Any]:
         return self.backend.evaluate(system_prompt, user_prompt, json_schema)
+
+

@@ -1,8 +1,7 @@
 from dotenv import load_dotenv
-from evaluation.evaluator_base import ResumeEvaluationEngine
-from evaluation.evaluator_tester import EvaluatorTester
 from icecream import ic
 load_dotenv()
+from evaluation.evaluator_tester import EvaluatorTester
 
 # input_exp = "Software Engineer with 5 years of experience in Python, Java and AWS."
 # job_desc = "Looking for a Software Engineer with experience in Python, Java, and cloud technologies."
@@ -24,6 +23,12 @@ load_dotenv()
 # ic(result)
 
 
-csv_path = './evaluation/eval.csv'
-ev_tester = EvaluatorTester(eval_backend='ollama',model='smollm2')
-ev_tester.evaluate_from_csv(csv_path)
+csv_path = './data/rizzume_optimization_v1.csv'
+csv_path = './evaluation/evaluator_tester.csv'
+ev_tester = EvaluatorTester(eval_backend='gemini'
+                            # ,model='smollm2'
+                            )
+ev_df = ev_tester.evaluate_from_csv(csv_path)
+
+ic(ev_df)
+ev_tester.analyze_results()

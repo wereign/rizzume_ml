@@ -1,3 +1,4 @@
+import os
 from icecream import ic
 from datetime import datetime
 from evaluation.evaluator_base import ResumeEvaluationEngine
@@ -9,15 +10,10 @@ class EvaluatorTester(ResumeEvaluationEngine):
     def evaluate_from_csv(self, csv_path, output_dir_path: str = OUTPUT_DIR):
         original_df = pd.read_csv(csv_path)
         og_columns = list(original_df.columns)
-
+        
         # Create a new DataFrame with additional prediction columns
-        output_columns = og_columns + [
-            "pred_factual_accuracy",
-            "pred_alignment",
-            "pred_section_length",
-            "pred_grammar",
-            "pred_justification",
-        ]
+        output_columns = og_columns + [f"pred_{i}" for i in self.metric_names]
+        
         eval_df = original_df.copy()
         for col in output_columns:
             if col not in eval_df.columns:
@@ -25,12 +21,16 @@ class EvaluatorTester(ResumeEvaluationEngine):
 
         # Iterate through and evaluate each row
         for i, row in eval_df.iterrows():
+            print("Evaluate Model")
+            print(row["input_experience"][:50])
+            print(row["job_description"][:50])
+            print(row["output_experience"][:50])
+            print()
             result = self.evaluate(
-                row["input_experience"],
-                row["job_description"],
-                row["output_experience"],
+                input_experience = row["input_experience"],
+                job_description=row["job_description"],
+                output_experience=row["output_experience"],
             )
-            ic(result)
             for key in result:
                 df_key = f"pred_{key}"
                 eval_df.at[i, df_key] = str(result[key])
@@ -40,5 +40,22 @@ class EvaluatorTester(ResumeEvaluationEngine):
         output_path = (
             f"{output_dir_path}/eval_{time_string}_{self.eval_backend}_{self.model}.csv"
         )
-        ic(output_path)
+        # ic(output_path)
         eval_df.to_csv(output_path, index=False)
+        
+        if not hasattr(self,"_eval_df"):
+            self._eval_df = eval_df
+
+        return eval_df  
+
+    def analyze_results(self,csv_path=None):
+        if not hasattr(self,"_eval_df") and not csv_path:
+            raise AttributeError("Please run evaluation first or provide path to saved csv")
+        # if both, csv path and the attribute exist and are passed as arguments, then 
+        elif csv_path:
+            self._eval_df = pd.read_csv(csv_path)
+        elif hasattr(self,'_eval_df'):
+            pass
+
+
+

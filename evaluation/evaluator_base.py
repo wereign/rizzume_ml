@@ -16,6 +16,9 @@ class MetricProcessor:
         except Exception as e:
             print(f"Error loading metrics JSON file: {e}")
             return {}
+    
+    def get_metrics_name(self):
+        return list(self.metrics.keys())
 
     def construct_metrics_string(self) -> str:
         metrics_string = ""
@@ -103,12 +106,13 @@ class PromptBuilder:
 
 class ResumeEvaluationEngine:
     # TODO: Extend ResumeEvaluationEngine to work with a CSV input for predictions, and a method to compare with ground truths.
-    def __init__(self, metrics_path: str='./evaluation/metrics.json', prompt_path: str='./evaluation/prompts.yaml',eval_backend: str = "ollama",model=None):
+    def __init__(self, metrics_path: str='./evaluation/metrics.json', prompt_path: str='./evaluation/prompts.yaml',eval_backend: str = "ollama",**model_kwargs):
         self.eval_backend = eval_backend
-        self.model = model
+        self.model_kwargs = model_kwargs
         self.metric_processor = MetricProcessor(metrics_path)
         self.prompt_builder = PromptBuilder(prompt_path)
-        self.evaluator = ResumeEvaluator(backend=self.eval_backend,model=self.model)
+        self.evaluator = ResumeEvaluator(backend=self.eval_backend,**model_kwargs)
+        self.metric_names = self.metric_processor.get_metrics_name()
 
     def evaluate(
         self, input_experience: str, job_description: str, output_experience: str
