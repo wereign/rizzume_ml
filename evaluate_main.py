@@ -28,7 +28,7 @@ csv_path = './data/rizzume_optimization_v1.csv'
 ev_tester = EvaluatorTester(eval_backend='gemini'
                             # ,model='smollm2'
                             )
-ev_df = ev_tester.evaluate_from_csv(csv_path)
-
-ic(ev_df)
-ev_tester.analyze_results()
+# ev_df = ev_tester.evaluate_from_csv(csv_path)
+# ic(ev_df)
+analysis_results = "C:/Users/viren/Desktop/Rizzume/Code/rizzume_ml/eval_test/eval_05_04_2025_15_47_07_gemini_gemini-2.0-flash.csv"
+ev_tester.analyze_results(analysis_results)
