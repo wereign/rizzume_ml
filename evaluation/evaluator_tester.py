@@ -1,4 +1,5 @@
 import os
+import time
 from icecream import ic
 from datetime import datetime
 from evaluation.evaluator_base import ResumeEvaluationEngine
@@ -21,11 +22,15 @@ class EvaluatorTester(ResumeEvaluationEngine):
 
         # Iterate through and evaluate each row
         for i, row in eval_df.iterrows():
-            print("Evaluate Model")
+            print(f"Evaluating Sample: {i}")
             print(row["input_experience"][:50])
             print(row["job_description"][:50])
             print(row["output_experience"][:50])
             print()
+
+            if i + 1 % 15 == 0:
+                time.sleep(30)
+                
             result = self.evaluate(
                 input_experience = row["input_experience"],
                 job_description=row["job_description"],

@@ -23,8 +23,8 @@ from evaluation.evaluator_tester import EvaluatorTester
 # ic(result)
 
 
-csv_path = './data/rizzume_optimization_v1.csv'
 csv_path = './evaluation/evaluator_tester.csv'
+csv_path = './data/rizzume_optimization_v1.csv'
 ev_tester = EvaluatorTester(eval_backend='gemini'
                             # ,model='smollm2'
                             )

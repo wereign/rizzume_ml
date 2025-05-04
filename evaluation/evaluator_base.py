@@ -111,9 +111,16 @@ class ResumeEvaluationEngine:
         self.model_kwargs = model_kwargs
         self.metric_processor = MetricProcessor(metrics_path)
         self.prompt_builder = PromptBuilder(prompt_path)
-        self.evaluator = ResumeEvaluator(backend=self.eval_backend,**model_kwargs)
         self.metric_names = self.metric_processor.get_metrics_name()
 
+        print(eval_backend)
+        if eval_backend == 'ollama':
+            self.model = model_kwargs.get('model','smollm2')
+        elif eval_backend == "gemini":
+            self.model = model_kwargs.get('model','gemini-2.0-flash')
+
+        self.evaluator = ResumeEvaluator(backend=self.eval_backend,model=self.model)
+    
     def evaluate(
         self, input_experience: str, job_description: str, output_experience: str
     ):

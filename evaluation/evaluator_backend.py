@@ -64,61 +64,9 @@ class GeminiBackend(EvaluationBackend):
         self, system_prompt: str, user_prompt: str, json_schema: Dict[str, Any]
     ) -> Dict[str, Any]:
         
-        metrics_schema = {
-    "type": "object",
-    "properties": {
-        "Factual Accuracy": {
-            "type": "string",
-            "enum": [
-                "Factual",
-                "Deceptive"
-            ],
-            "description": "One of: Factual, Deceptive"
-        },
-        "Alignment": {
-            "type": "string",
-            "enum": [
-                "Misaligned",
-                "Neutral",
-                "Well Aligned"
-            ],
-            "description": "One of: Misaligned, Neutral, Well Aligned"
-        },
-        "Section Length": {
-            "type": "string",
-            "enum": [
-                "Too Short",
-                "Optimal",
-                "Too Long"
-            ],
-            "description": "One of: Too Short, Optimal, Too Long"
-        },
-        "Grammar": {
-            "type": "string",
-            "enum": [
-                "Needs Improvement",
-                "Acceptable",
-                "Polished"
-            ],
-            "description": "One of: Needs Improvement, Acceptable, Polished"
-        }
-    },
-    "required": [
-        "Factual Accuracy",
-        "Alignment",
-        "Section Length",
-        "Grammar"
-    ],
-}
-        genai_schema = genai.types.Schema().from_orm(metrics_schema)
         
-        print(f"Using Model: {self.model}")
-        print("\n\nSystem Prompt:")
-        print(system_prompt[:100])
-        print("\n\nUser Prompt:")
-        print(user_prompt[:100])
-        print("\n\n")
-
+        genai_schema = genai.types.Schema().from_orm(json_schema)
+        
         response = self.client.models.generate_content(
             model=self.model,
             contents=[user_prompt],
@@ -130,25 +78,23 @@ class GeminiBackend(EvaluationBackend):
                 response_schema= genai_schema
             )
         )
-        print(response)
+        output = json.loads(response.text)
+        print(type(output))
+        print(output)
         return json.loads(response.text)
 
 
 class ResumeEvaluator:
-    def __init__(self, backend: Literal["ollama", "gemini"],**kwargs):
+    def __init__(self, backend: Literal["ollama", "gemini"],model:str,**kwargs):
         if backend == "ollama":
-            self.model = kwargs.get('model','smollm2')
             self.backend: EvaluationBackend = OllamaBackend(
-                model=self.model,
+                model=model,
                 base_url=kwargs.get("base_url", "http://localhost:11434"),
             )
         elif backend == "gemini":
-            self.model = kwargs.get("model", "gemini-2.0-flash")
-            
-            print(f"In ResumeEvaluator: {self.model}")
-
+            print(f"In ResumeEvaluator: {model}")
             self.backend: EvaluationBackend = GeminiBackend(
-                model=self.model,
+                model=model,
             )
         else:
             raise ValueError("Unsupported backend. Choose from 'ollama' or 'gemini'.")
