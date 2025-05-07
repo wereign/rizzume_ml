@@ -1,7 +1,7 @@
+from evaluation.evaluator_tester import EvaluatorTester
 from dotenv import load_dotenv
 from icecream import ic
 load_dotenv()
-from evaluation.evaluator_tester import EvaluatorTester
 
 # input_exp = "Software Engineer with 5 years of experience in Python, Java and AWS."
 # job_desc = "Looking for a Software Engineer with experience in Python, Java, and cloud technologies."

@@ -1,7 +1,7 @@
 import json
 from jinja2 import Template
 import yaml
-from evaluation.evaluator_backend import ResumeEvaluator
+from llm_provider.llm import LLMClient
 
 
 class MetricProcessor:
@@ -112,14 +112,13 @@ class ResumeEvaluationEngine:
         self.metric_processor = MetricProcessor(metrics_path)
         self.prompt_builder = PromptBuilder(prompt_path)
         self.metric_names = self.metric_processor.get_metrics_name()
-
-        print(eval_backend)
+        
         if eval_backend == 'ollama':
             self.model = model_kwargs.get('model','smollm2')
         elif eval_backend == "gemini":
             self.model = model_kwargs.get('model','gemini-2.0-flash')
 
-        self.evaluator = ResumeEvaluator(backend=self.eval_backend,model=self.model)
+        self.llm_client = LLMClient(backend=self.eval_backend,model=self.model)
     
     def evaluate(
         self, input_experience: str, job_description: str, output_experience: str
@@ -129,7 +128,7 @@ class ResumeEvaluationEngine:
             input_experience, job_description, output_experience, metrics_string
         )
         json_schema = self.metric_processor.construct_json_schema()
-        return self.evaluator.evaluate(system_prompt, user_prompt, json_schema)
+        return self.llm_client.structured_generate(system_prompt, user_prompt, json_schema)
 
 if __name__ == "__main__":
     input_exp = "Software Engineer with 5 years of experience in Python and Java."

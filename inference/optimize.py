@@ -4,22 +4,22 @@ import yaml
 import json
 import ollama
 from copy import deepcopy
-from profile_model import MasterProfile,  Project, Experience
-from pydantic import BaseModel
+from profile_model import MasterProfile
+from llm_provider.llm import LLMClient
 
-ALL_MODELS = ['llama3.2', 'smollm2', 'gemma3:4b', 'gemma3:1b', 'command-r7b']
 
-from pydantic import BaseModel
-class ModelOutput(BaseModel):
-    description : str
-    relevance : int
-print(ModelOutput.model_json_schema())
-
+ALL_OLLAMA_MODELS = ["llama3.2", "smollm2", "gemma3:4b", "gemma3:1b", "command-r7b"]
+ALL_GEMINI_MODELS = ['gemini-2.0-flash']
 class OptimizeResume():
     def __init__(self, llm_model, master_profile: MasterProfile, job_description: str, selected_tags: list, prompts_path: str = './prompts.yaml'):
-        self.client = ollama.Client()
-        if llm_model in ALL_MODELS:
-            self.model_name = llm_model
+
+        self.model_name = llm_model
+        if self.model_name in ALL_OLLAMA_MODELS:
+            backend = 'ollama'
+        elif self.model_name in ALL_GEMINI_MODELS:
+            backend = 'gemini'
+
+        self.client = LLMClient(backend=backend,model=self.model_name)
 
         with open(prompts_path, 'r', encoding='utf-8') as p_file:
             self.prompts = yaml.safe_load(p_file)
@@ -40,7 +40,7 @@ class OptimizeResume():
         filtered_profile:MasterProfile = deepcopy(self.master_profile)
         master_profile:MasterProfile = self.master_profile
         selected_tags = self.selected_tags
-        
+
         filtered_profile.skills = master_profile.skills
         filtered_profile.projects = [
             proj for proj in master_profile.projects if has_matching_tag(proj.tags)]
@@ -68,22 +68,18 @@ class OptimizeResume():
         self.filtered_profile = filtered_profile
         return filtered_profile
 
-    def optimize_item(self, section_prompt, section_description):
-        print(f"Optimizing Item ")
-        item_message = section_prompt['user_prompt'].format(jd=self.job_description,item=section_description)
-        messages = [
-            {
-                "role": "system", "content": section_prompt['system_prompt']
-            },
-            {
-                "role": "user", "content": item_message 
-            }
-        ]
-
+    def optimize_item(self,job_description, item):
+        print("Optimizing Item")
+        prompts = self.prompts["optimize_item"]
+        system_prompt = prompts["system_prompt"]
+        user_prompt = prompts['user_prompt'].format(jd=job_description,item=item)
+        
         print(f"Sent item to {self.model_name}")
-        response = self.client.chat(model=self.model_name,messages=messages,format=ModelOutput.model_json_schema())
+        response = self.client.generate(system_prompt,user_prompt)
+        optimized_content = response.message.content
+        
         print(f"Response from {self.model_name}")
-        return json.loads(response.message.content)
+        return optimized_content
 
     def tune_resume(self,as_json=True):
         print("Tuning Resumes")
@@ -91,7 +87,7 @@ class OptimizeResume():
             self.filter_sections()
         else:
             pass
-        
+
         tuned_profile = deepcopy(self.filtered_profile)
         # mutable sections - Project | Experience
 
@@ -120,15 +116,13 @@ class OptimizeResume():
             section.sort(key=lambda x:x.relevance,reverse=True)
             print("Sorted section")
             print(section)    
-        
-            
+
         self.tuned_profile = tuned_profile
 
         if as_json:
             return json.loads(tuned_profile.model_dump_json())
         else:
             self.tuned_profile
-        
 
 
 if __name__ == "__main__":
