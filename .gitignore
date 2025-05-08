@@ -1,3 +1,5 @@
 **/__pycache__/
 **/logs/*
 eval_test/
+data/
+experiment_output.csv

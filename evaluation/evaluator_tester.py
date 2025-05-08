@@ -1,6 +1,5 @@
 import os
 import time
-from icecream import ic
 from datetime import datetime
 from evaluation.evaluator_base import ResumeEvaluationEngine
 from sklearn.metrics import classification_report
@@ -16,7 +15,7 @@ class EvaluatorTester(ResumeEvaluationEngine):
 
     def evaluate_from_csv(self, csv_path, output_dir_path: str = OUTPUT_DIR):
         original_df = pd.read_csv(csv_path)
-        og_columns = list(original_df.columns)
+        og_columns = list(original_df.columns)  
 
         # Create a new DataFrame with additional prediction columns
         output_columns = og_columns + [f"pred_{i}" for i in self.metric_names]
@@ -30,12 +29,6 @@ class EvaluatorTester(ResumeEvaluationEngine):
 
          # Iterate through and evaluate each row
         for i, row in eval_df.iterrows():
-            print()
-            print(f"Evaluating Sample: {i}")
-            # print(row["input_experience"][:50])
-            # print(row["job_description"][:50])
-            # print(row["output_experience"][:50])
-
             if (i + 1) % 15 == 0:
                 print('15 Samples tested. Waiting')
                 time.sleep(30)

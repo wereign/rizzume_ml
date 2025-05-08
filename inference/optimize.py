@@ -2,7 +2,6 @@ from pprint import pprint
 from typing import List
 import yaml
 import json
-import ollama
 from copy import deepcopy
 from profile_model import MasterProfile
 from llm_provider.llm import LLMClient

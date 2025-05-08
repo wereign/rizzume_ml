@@ -61,7 +61,6 @@ class OllamaBackend(LLMBackend):
             print("Error during optimization with Ollama:", e)
             return ""
 
-
 class GeminiBackend(LLMBackend):
     def __init__(self, model: str = "gemini-2.0-flash"):
         self.model = model
@@ -102,7 +101,6 @@ class GeminiBackend(LLMBackend):
         )
         output = response.text
         return output
-
 
 class LLMClient:
     def __init__(self, backend: Literal["ollama", "gemini"], **kwargs):

@@ -1,2 +1,9 @@
-input_experience, job_description, output_experience, model, section_type
-
+input_experience,job_description
+ie1, jd_1 
+ie2, jd_2 
+ie3, jd_3 
+ie4, jd_4 
+ie5, jd_5 
+ie6, jd_6 
+ie7, jd_7 
+ie8, jd_8

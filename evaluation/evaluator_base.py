@@ -105,7 +105,6 @@ class PromptBuilder:
 
 
 class ResumeEvaluationEngine:
-    # TODO: Extend ResumeEvaluationEngine to work with a CSV input for predictions, and a method to compare with ground truths.
     def __init__(self, metrics_path: str='./evaluation/metrics.json', prompt_path: str='./evaluation/prompts.yaml',eval_backend: str = "ollama",**model_kwargs):
         self.eval_backend = eval_backend
         self.model_kwargs = model_kwargs
