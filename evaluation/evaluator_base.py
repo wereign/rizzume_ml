@@ -105,20 +105,20 @@ class PromptBuilder:
 
 
 class ResumeEvaluationEngine:
-    def __init__(self, metrics_path: str='./evaluation/metrics.json', prompt_path: str='./evaluation/prompts.yaml',eval_backend: str = "ollama",**model_kwargs):
+    def __init__(self, metrics_path: str='./evaluation/metrics.json', prompt_path: str='./evaluation/prompts.yaml',eval_backend: str = "gemini",**eval_model_kwargs):
         self.eval_backend = eval_backend
-        self.model_kwargs = model_kwargs
+        self.model_kwargs = eval_model_kwargs
         self.metric_processor = MetricProcessor(metrics_path)
         self.prompt_builder = PromptBuilder(prompt_path)
         self.metric_names = self.metric_processor.get_metrics_name()
-        
+
         if eval_backend == 'ollama':
-            self.model = model_kwargs.get('model','smollm2')
+            self.model = eval_model_kwargs.get('model','smollm2')
         elif eval_backend == "gemini":
-            self.model = model_kwargs.get('model','gemini-2.0-flash')
+            self.model = eval_model_kwargs.get('model','gemini-2.0-flash')
 
         self.llm_client = LLMClient(backend=self.eval_backend,model=self.model)
-    
+
     def evaluate(
         self, input_experience: str, job_description: str, output_experience: str
     ):
@@ -127,8 +127,9 @@ class ResumeEvaluationEngine:
             input_experience, job_description, output_experience, metrics_string
         )
         json_schema = self.metric_processor.construct_json_schema()
-        return self.llm_client.structured_generate(system_prompt, user_prompt, json_schema)
-
+        return self.llm_client.structured_generate(system_prompt, user_prompt, json_schema) 
+ 
+            
 if __name__ == "__main__":
     input_exp = "Software Engineer with 5 years of experience in Python and Java."
     job_desc = "Looking for a Software Engineer with experience in Python, Java, and cloud technologies."

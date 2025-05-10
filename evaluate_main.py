@@ -28,9 +28,20 @@ load_dotenv()
 
 prompts_path = "./inference/prompts.yaml"
 benchmark_path = './data/rizzume_optimization_v1_benchmark.csv'
-experiment = ModelExperimentConfiguration(
-    backend="ollama", model_name="smollm2", prompts_path=prompts_path
-)
-harness = ExperimentHarness(csv_path=benchmark_path)
-output = harness.run_experiment(experiment)
+experiments = [
+    ModelExperimentConfiguration(
+        
+        experiment_name='gemini',backend="gemini", model_name="gemini-2.0-flash", prompts_path=prompts_path
+    ),
+    ModelExperimentConfiguration(
+        experiment_name= "smollm2",
+        backend="ollama", model_name="smollm2", prompts_path=prompts_path
+    ),
+    ModelExperimentConfiguration(
+        experiment_name="llama3.2",
+        backend="ollama", model_name="llama3.2", prompts_path=prompts_path
+    )]
+experiment_dir = "C:/Users/viren/Desktop/Rizzume/Code/rizzume_ml/experiment_results/first_experiments"
+harness = ExperimentHarness(csv_path=benchmark_path,experiment_results_dir=experiment_dir)
+output = harness.run_experiments(experiments,save_individual_experiments=True)
 output.to_csv('./experiment_output.csv')
