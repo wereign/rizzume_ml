@@ -37,7 +37,6 @@ class MetricProcessor:
             "type": "object",
             "properties": {},
             "required": list(self.metrics.keys()) + ["justification"],
-            # "additionalProperties": False,
         }
 
         for metric, details in self.metrics.items():
@@ -45,7 +44,6 @@ class MetricProcessor:
             json_schema["properties"][metric] = {
                 "type": "string",
                 "enum": list(options.keys()),
-                # "enumDescriptions": list(options.values()),
                 "description": f"One of: {', '.join(options.keys())}",
             }
 
@@ -54,15 +52,12 @@ class MetricProcessor:
             "properties": {
                 metric: {
                     "type": "string",
-                    # "description": f"Explanation for the {metric} score.",
                 }
                 for metric in self.metrics
             },
             "required": list(self.metrics.keys()),
             # "additionalProperties": False,
         }
-
-        print(json_schema)
         return json_schema
 
 

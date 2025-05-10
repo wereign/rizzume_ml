@@ -18,4 +18,4 @@ user_prompt: |
   Improved Section (the content to evaluate):
   {{ output_experience }}
 
-  For each of the four metrics, assign a score from the available options and briefly justify your choice. Use the definitions provided in the system prompt as your guide.
+  For each of the metrics, assign a score from the available options and briefly justify your choice. Use the definitions provided in the system prompt as your guide.

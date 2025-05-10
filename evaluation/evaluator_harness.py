@@ -22,14 +22,16 @@ class ModelExperimentConfiguration:
 
 
 class ExperimentHarness(ResumeEvaluationEngine):
-    def __init__(self, experiment_prefix, csv_path, experiment_results_dir, *args, **kwargs):
+    def __init__(self, experiment_prefix, csv_path, all_experiment_results_dir, *args, **kwargs):
         self.experiment_prefix = experiment_prefix
-        self.experiment_results_dir = experiment_results_dir
-        self.checkpoint_dir = f"{experiment_results_dir}/{experiment_prefix}_checkpoints"
+        
+        self.experiment_results_dir = f"{all_experiment_results_dir}/{experiment_prefix}"
+        os.makedirs(f"{all_experiment_results_dir}/{experiment_prefix}")
+        self.checkpoint_dir = f"{self.experiment_results_dir}/{experiment_prefix}_checkpoints"
         os.makedirs(self.checkpoint_dir, exist_ok=True)
+    
         self.df = pd.read_csv(csv_path)
         super().__init__(*args, **kwargs)
-
 
     def run_experiments(
         self,
@@ -89,9 +91,9 @@ class ExperimentHarness(ResumeEvaluationEngine):
         final_df = pd.concat(result_dfs, ignore_index=True)
 
         if save_final_experiments:
-                csv_path = f"{self.experiment_results_dir}/{self.experiment_prefix}_{time_string}.csv"
-                if not os.path.exists(csv_path):
-                    evaluated_df.to_csv(csv_path, index=False)
+            csv_path = f"{self.experiment_results_dir}/{self.experiment_prefix}_{time_string}.csv"
+            if not os.path.exists(csv_path):
+                evaluated_df.to_csv(csv_path, index=False)
 
         return final_df
 

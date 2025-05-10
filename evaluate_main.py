@@ -41,7 +41,7 @@ experiments = [
         experiment_name="llama3.2",
         backend="ollama", model_name="llama3.2", prompts_path=prompts_path
     )]
-experiment_dir = "C:/Users/viren/Desktop/Rizzume/Code/rizzume_ml/experiment_results/first_experiments"
-harness = ExperimentHarness(csv_path=benchmark_path,experiment_results_dir=experiment_dir)
+experiment_dir = "C:/Users/viren/Desktop/Rizzume/Code/rizzume_ml/experiment_results/"
+harness = ExperimentHarness(experiment_prefix='first',csv_path=benchmark_path,all_experiment_results_dir=experiment_dir)
 output = harness.run_experiments(experiments,save_individual_experiments=True)
 output.to_csv('./experiment_output.csv')
