@@ -1,5 +1,7 @@
 from datetime import datetime
 import os
+from pathlib import Path
+from pprint import pprint
 import time
 import yaml
 import pandas as pd
@@ -24,12 +26,12 @@ class ModelExperimentConfiguration:
 class ExperimentHarness(ResumeEvaluationEngine):
     def __init__(self, experiment_prefix, csv_path, all_experiment_results_dir, *args, **kwargs):
         self.experiment_prefix = experiment_prefix
-        
+
         self.experiment_results_dir = f"{all_experiment_results_dir}/{experiment_prefix}"
-        os.makedirs(f"{all_experiment_results_dir}/{experiment_prefix}")
+        os.makedirs(f"{all_experiment_results_dir}/{experiment_prefix}",exist_ok=True)
         self.checkpoint_dir = f"{self.experiment_results_dir}/{experiment_prefix}_checkpoints"
         os.makedirs(self.checkpoint_dir, exist_ok=True)
-    
+
         self.df = pd.read_csv(csv_path)
         super().__init__(*args, **kwargs)
 
@@ -59,11 +61,17 @@ class ExperimentHarness(ResumeEvaluationEngine):
         result_dfs = []
 
         for experiment in experiments:
+            print("Running Experiment")
+            print(experiment)
             df_copy = self.df.copy(deep=True)
+
+            if experiment.backend == 'gemini':
+                timeout_interval = 5
+            else:
+                timeout_interval = 15
             gen_func = LLMClient(backend=experiment.backend, model=experiment.model_name)
             prompts = self.load_prompts(experiment.prompts_path)
             optimize_prompts = prompts["optimize_item"]
-
             df_copy["model"] = experiment.model_name
             df_copy["backend"] = experiment.backend
             df_copy["prompt_path"] = experiment.prompts_path
@@ -75,6 +83,8 @@ class ExperimentHarness(ResumeEvaluationEngine):
                     optimize_prompts,
                     gen_func,
                     debug=DEBUG,
+                    row_number=x.name,  # This gives you the row index.
+                    timeout_interval=timeout_interval
                 ),
                 axis=1,
             )
@@ -83,17 +93,19 @@ class ExperimentHarness(ResumeEvaluationEngine):
             result_dfs.append(evaluated_df)
 
             if save_individual_experiments:
+                prompt_technique = Path(prompts_path).stem
+                print(f"Prompting Technique : {prompt_technique}")
                 time_string = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
-                csv_path = f"{self.checkpoint_dir}/{experiment.experiment_name}_{time_string}.csv"
+                csv_path = f"{self.checkpoint_dir}/{experiment.model_name}_{prompt_technique}_{time_string}.csv"
                 if not os.path.exists(csv_path):
                     evaluated_df.to_csv(csv_path, index=False)
 
-        final_df = pd.concat(result_dfs, ignore_index=True)
+            final_df = pd.concat(result_dfs, ignore_index=True)
 
-        if save_final_experiments:
-            csv_path = f"{self.experiment_results_dir}/{self.experiment_prefix}_{time_string}.csv"
-            if not os.path.exists(csv_path):
-                evaluated_df.to_csv(csv_path, index=False)
+            if save_final_experiments:
+                csv_path = f"{self.experiment_results_dir}/{self.experiment_prefix}_{time_string}.csv"
+                if not os.path.exists(csv_path):
+                    final_df.to_csv(csv_path, index=False)
 
         return final_df
 
@@ -103,8 +115,12 @@ class ExperimentHarness(ResumeEvaluationEngine):
         job_description: str,
         optimize_prompts: dict,
         gen_func: LLMClient,
+        row_number : int,
         debug: bool = True,
+        timeout_interval=15
     ) -> str:
+        row_number = row_number+1
+        print(f"Optimizing Sample {row_number}")
         start_time = time.time()
         if debug:
             result = f"[DEBUG] Optimized: {item} for {job_description}"
@@ -118,6 +134,9 @@ class ExperimentHarness(ResumeEvaluationEngine):
 
         duration = time.time() - start_time  # in seconds
 
+        if row_number % timeout_interval == 0:
+            print("Waiting to prevent exceeding of API rate limit")
+            time.sleep(60)
         return pd.Series(
             [result, duration], index=["output_experience", "duration_seconds"]
         )
@@ -131,9 +150,10 @@ class ExperimentHarness(ResumeEvaluationEngine):
                 df[col] = None
 
         for i, row in df.iterrows():
-            if (i + 1) % 15 == 0:
-                print('15 Samples tested. Waiting')
-                time.sleep(30)
+            print(f"Testing Sample {i}")
+            if (i + 1) % 5 == 0:
+                print(f'{i+1} more Samples tested. Waiting')
+                time.sleep(10)
 
             result = self.evaluate(
                 input_experience = row["input_experience"],

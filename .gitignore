@@ -4,3 +4,5 @@ eval_test/
 data/
 experiment_output.csv   
 experiment_results/
+/prompts
+/evaluation/analysis/analysis_outputs
