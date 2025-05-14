@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.14">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="26.2.14">
   <diagram name="Page-1" id="Rc3s0BRqiITv8N8nPfR5">
-    <mxGraphModel dx="970" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1516" dy="786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -124,31 +124,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="SC9cyZY3klM1m1NmlQsm-36" value="&lt;h1&gt;Benchmarking Models&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1045.5" y="680" width="308" height="30" as="geometry" />
+          <mxGeometry x="1044.75" y="680" width="308" height="30" as="geometry" />
         </mxCell>
         <mxCell id="SC9cyZY3klM1m1NmlQsm-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="SC9cyZY3klM1m1NmlQsm-37" target="SC9cyZY3klM1m1NmlQsm-49" edge="1">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-37" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="840" y="750" width="719" height="90" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-38" value="Ollama Models&lt;br&gt;(Few Shot Prompting)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="863" y="765" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-39" value="Ollama Models&lt;div&gt;(Zero Shot Prompting)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1000" y="765" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-40" value="Gemini&lt;div&gt;(Few Shot Prompting)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1134" y="765" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-41" value="Gemini&lt;div&gt;(Zero Shot Prompting)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1270" y="765" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-42" value="Finetuned Model" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1409" y="765" width="120" height="60" as="geometry" />
-        </mxCell>
-        <mxCell id="SC9cyZY3klM1m1NmlQsm-43" value="&lt;b&gt;Model Zoo&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="1149" y="720" width="90" height="30" as="geometry" />
         </mxCell>
         <mxCell id="SC9cyZY3klM1m1NmlQsm-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="SC9cyZY3klM1m1NmlQsm-49" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -186,14 +165,35 @@
         <mxCell id="SC9cyZY3klM1m1NmlQsm-57" value="Analysis Per Model.&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Compare Performance Per metric, across industries&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1649.5" y="940" width="190" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="EE2F5sl9-kYnsEWwgJm--1" value="" style="endArrow=none;html=1;rounded=0;exitX=0.293;exitY=0.577;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="SC9cyZY3klM1m1NmlQsm-56">
+        <mxCell id="EE2F5sl9-kYnsEWwgJm--1" value="" style="endArrow=none;html=1;rounded=0;exitX=0.293;exitY=0.577;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="SC9cyZY3klM1m1NmlQsm-56" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="1220" y="1080" as="sourcePoint" />
             <mxPoint x="1270" y="1030" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="EE2F5sl9-kYnsEWwgJm--5" value="Time Taken" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="EE2F5sl9-kYnsEWwgJm--5" value="Time Taken" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1153.75" y="1030" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="m0XAwrbxmfJktLwqRYx8-1" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="913.75" y="710" width="570" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-37" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="m0XAwrbxmfJktLwqRYx8-1" vertex="1">
+          <mxGeometry y="30" width="570" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-38" value="Ollama Models&lt;br&gt;(Few Shot Prompting)" style="rounded=0;whiteSpace=wrap;html=1;" parent="m0XAwrbxmfJktLwqRYx8-1" vertex="1">
+          <mxGeometry x="23" y="45" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-39" value="Ollama Models&lt;div&gt;(Zero Shot Prompting)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="m0XAwrbxmfJktLwqRYx8-1" vertex="1">
+          <mxGeometry x="160" y="45" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-40" value="Gemini&lt;div&gt;(Few Shot Prompting)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="m0XAwrbxmfJktLwqRYx8-1" vertex="1">
+          <mxGeometry x="294" y="45" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-41" value="Gemini&lt;div&gt;(Zero Shot Prompting)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="m0XAwrbxmfJktLwqRYx8-1" vertex="1">
+          <mxGeometry x="430" y="45" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="SC9cyZY3klM1m1NmlQsm-43" value="&lt;b&gt;Model Zoo&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="m0XAwrbxmfJktLwqRYx8-1" vertex="1">
+          <mxGeometry x="236.5" width="90" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
